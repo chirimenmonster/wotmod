@@ -18,7 +18,7 @@ email:
 description: > # this means to ignore newlines until "baseurl:"
   World of Tanks の mod 開発に関連する情報をメモしています
 baseurl: "" # the subpath of your site, e.g. /blog
-url: "" # the base hostname & protocol for your site, e.g. http://example.com
+url: "https://wotmod.mtm-gaming.org" # the base hostname & protocol for your site, e.g. http://example.com
 twitter_username: ChirimenSpiral
 github_username:  chirimenmonster
 google_analytics: UA-59819729-4
