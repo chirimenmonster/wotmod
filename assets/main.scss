@@ -1,0 +1,35 @@
+---
+# Only the main Sass file needs front matter (the dashes are enough)
+---
+
+@import "minima";
+
+.site-header {
+  border-top: none;
+}
+
+.site-footer {
+  padding-top: 15px;
+}
+
+.footer-col-1 {
+  display: none;
+}
+
+.footer-col-2 {
+  width: -webkit-calc(45% - (#{$spacing-unit} / 2));
+  width:         calc(45% - (#{$spacing-unit} / 2));
+}
+
+.footer-col-3 {
+  width: -webkit-calc(55% - (#{$spacing-unit} / 2));
+  width:         calc(55% - (#{$spacing-unit} / 2));
+}
+
+.social-media-list li {
+  display: inline-block;
+  margin-right: 1em;
+  +li {
+    padding-top: 0;
+  }
+}

@@ -16,13 +16,15 @@
 title: "World of Tanks: Mod"
 email: 
 description: > # this means to ignore newlines until "baseurl:"
-  Write an awesome description for your new site here. You can edit this
-  line in _config.yml. It will appear in your document head meta (for
-  Google search results) and in your feed.xml site description.
+  World of Tanks の mod 開発に関連する情報をメモしています
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "" # the base hostname & protocol for your site, e.g. http://example.com
 twitter_username: ChirimenSpiral
 github_username:  chirimenmonster
+google_analytics: UA-59819729-4
+
+header_pages:
+  - about.md
 
 # Build settings
 markdown: kramdown
