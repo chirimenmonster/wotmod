@@ -11,6 +11,13 @@ World of Tanks の mod 開発に関する情報のまとめです。
 ## Contents
 + [Mod Packages](mod_packages):
 拡張子が .wotmod の mod に関する情報です
++ [仮想ファイルシステム (ResMgr, paths.xml)](docs/vfs)
++ Python
++ ActionScript3 (Flash)
++ フォント
++ 国際化メッセージ (gettext)
++ サウンド
++ スキン
 
 ## Works
 + [SpotMessanger](https://github.com/chirimenmonster/wotmods-spotmessanger):
