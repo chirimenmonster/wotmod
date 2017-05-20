@@ -1,6 +1,7 @@
 ---
 layout: page
 title: 仮想ファイルシステム
+date: 2017-05-20 18:30 +0900
 ---
 
 ## 概要
@@ -38,5 +39,21 @@ paths.xml は WoT クライアントのリソース検索順序を指定する�
 
 XML 要素 Path で指定しているのがリソースの検索パスになります。
 Path にはフォルダだけでなく、ZIP でパッケージ化されたファイルも指定することができます。
+
+#### 検索の例
+例えば `gui/gui_settings.xml` というファイルを探すとします。
+
+ファイルは `paths.xml` の記述に従って、まず `./res_mods/0.9.18.0/gui/gui_settings.xml` というファイルがあるかどうか調べられます。
+フォルダの起点は WoT クライアントのインストールフォルダなので、
+クライアントのフォルダが `C:/Games/World_of_Tanks` であれば
+`C:/Games/World_of_Tanks/res_mods/0.9.18.0/gui/gui_settings.xml`
+というファイルが調べられることになります。
+
+見つからなければ `./mods/0.9.18.0` の下にある `*.wotmod` が調べられ、
+その次は `./res/packages/shared_content.pkg` の中が調べられます。
+`*.wotmod` や `*.pkg` は ZIP でパッケージされたファイルです。
+
+そうして `gui/gui_settings.xml` が見つかるまで `Path` の最後まで調べられますが、
+実際には `./res/packages/gui.pkg` にあるのでそこで検索は終了です。
 
 ### ResMgr
