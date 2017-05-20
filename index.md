@@ -12,7 +12,7 @@ World of Tanks の mod 開発に関する情報のまとめです。
 + [Mod Packages](mod_packages):
 拡張子が .wotmod の mod に関する情報です
 + [仮想ファイルシステム (ResMgr, paths.xml)](docs/vfs)
-+ [Python](docs/mod_python)
++ [Python で作成する mod](docs/mod_python)
 + ActionScript3 (Flash)
 + フォント
 + 国際化メッセージ (gettext)
