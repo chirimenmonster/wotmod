@@ -14,7 +14,7 @@ World of Tanks の mod 開発に関する情報のまとめです。
 + [仮想ファイルシステム (ResMgr, paths.xml)](docs/vfs)
 + [Python で作成する mod](docs/mod_python)
 + ActionScript3 (Flash)
-+ フォント
++ [フォント](docs/wot_fonts)
 + 国際化メッセージ (gettext)
 + サウンド
 + スキン
