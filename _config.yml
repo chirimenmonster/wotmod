@@ -21,7 +21,7 @@ baseurl: "" # the subpath of your site, e.g. /blog
 url: "https://wotmod.mtm-gaming.org" # the base hostname & protocol for your site, e.g. http://example.com
 twitter_username: ChirimenSpiral
 github_username:  chirimenmonster
-google_analytics: UA-59819729-4
+google_analytics: UA-59819729-6
 
 repository: 'chirimenmonster/wotmod'
 lang: ja
