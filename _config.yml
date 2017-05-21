@@ -24,6 +24,7 @@ github_username:  chirimenmonster
 google_analytics: UA-59819729-4
 
 repository: 'chirimenmonster/wotmod'
+lang: ja
 
 header_pages:
   - about.md

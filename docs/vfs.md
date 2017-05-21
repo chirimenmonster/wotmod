@@ -1,5 +1,5 @@
 ---
-layout: page
+layout: post
 title: 仮想ファイルシステム
 date: 2017-05-20 18:30 +0900
 ---

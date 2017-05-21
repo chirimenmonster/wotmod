@@ -5,6 +5,7 @@
 #layout: home
 layout: page
 title: "World of Tanks: Mod"
+date: 2017-05-21 20:00 +0900
 ---
 World of Tanks の mod 開発に関する情報のまとめです。
 

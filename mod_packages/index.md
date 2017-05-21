@@ -1,10 +1,7 @@
 ---
-# You don't need to edit this file, it's empty on purpose.
-# Edit theme's home layout instead if you wanna make some changes
-# See: https://jekyllrb.com/docs/themes/#overriding-theme-defaults
-#layout: home
-layout: page
+layout: post
 title: "World of Tanks: Mod Packages"
+date: 2017-05-19 17:00 +0900
 ---
 WoT の新しい mod システムである wotmod 形式 (拡張子 .wotmod のファイル) に関する情報です。
 wotmod は WoT 0.9.17.1 CT から導入されました。

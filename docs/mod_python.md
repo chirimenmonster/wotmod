@@ -1,5 +1,5 @@
 ---
-layout: page
+layout: post
 title: Python で作成する mod
 date: 2017-05-20 21:30 +0900
 ---

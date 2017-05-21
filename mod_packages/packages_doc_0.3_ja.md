@@ -1,6 +1,7 @@
 ---
-layout: page
+layout: post
 title: "World of Tanks: Mod Packages"
+date: 2017-05-19 17:00 +0900
 ---
 原文:
 [packages_doc_0.3.pdf](../resources/packages_doc_0.3.pdf)

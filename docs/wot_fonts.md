@@ -1,5 +1,5 @@
 ---
-layout: page
+layout: post
 title: フォント
 date: 2017-05-21 17:30 +0900
 ---
