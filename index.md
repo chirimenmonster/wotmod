@@ -2,14 +2,14 @@
 # You don't need to edit this file, it's empty on purpose.
 # Edit theme's home layout instead if you wanna make some changes
 # See: https://jekyllrb.com/docs/themes/#overriding-theme-defaults
-#layout: home
-layout: page
+layout: home
+#layout: page
 title: "World of Tanks: Mod"
 date: 2017-05-21 20:00 +0900
 ---
 World of Tanks の mod 開発に関する情報のまとめです。
 
-## Contents
+# Contents
 + [Mod Packages](mod_packages):
 拡張子が .wotmod の mod に関する情報です
 + [仮想ファイルシステム (ResMgr, paths.xml)](docs/vfs)
@@ -20,7 +20,7 @@ World of Tanks の mod 開発に関する情報のまとめです。
 + サウンド
 + スキン
 
-## Works
+# Works
 + [SpotMessanger](https://github.com/chirimenmonster/wotmods-spotmessanger):
 6感発動時にチャットを送信するmodです
 + [SaveAccount](https://github.com/chirimenmonster/wotmods-saveaccount):
