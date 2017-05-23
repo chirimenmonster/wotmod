@@ -2,7 +2,11 @@
 layout: post
 title: "World of Tanks: Mod Packages"
 date: 2017-05-19 17:00 +0900
+modified: 2017-05-23 22:00 +0900
 ---
+この文書は古いバージョンの仕様書を元にしています。
+最新の仕様は [公式ドキュメントの翻訳](./#公式ドキュメントの翻訳) を参照してください。
+
 原文: 
 [packages_doc_0.2.pdf](../resources/packages_doc_0.2.pdf),
 [packages_doc_0.2_en.pdf](../resources/packages_doc_0.2_en.pdf)

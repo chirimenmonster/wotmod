@@ -2,7 +2,11 @@
 layout: post
 title: "World of Tanks: Mod Packages"
 date: 2017-05-19 17:00 +0900
+modified: 2017-05-23 22:00 +0900
 ---
+この文書は古いバージョンの仕様書を元にしています。
+最新の仕様は [公式ドキュメントの翻訳](./#公式ドキュメントの翻訳) を参照してください。
+
 (原文: [mod packages v0.1.pdf](../resources/mod_packages_v0.1.pdf))
 
 World of Tanks の次期アップデートでは、mod パッケージという新しい手法が実装される予定です。
