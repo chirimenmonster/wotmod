@@ -58,8 +58,7 @@
     display: inline-block;
     margin-right: 1em;
   }
-}
-
-.post-meta li[itemprop="author"] {
-  display: none;
+  li[itemprop="author"], [itemprop="publisher"] {
+    display: none;
+  }
 }
