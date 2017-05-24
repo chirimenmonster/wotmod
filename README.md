@@ -1,1 +1,1 @@
-see https://wotmod.mtm-gaming.org
+see https://wotmod.mtm-gaming.org/
