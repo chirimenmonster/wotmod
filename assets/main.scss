@@ -33,6 +33,11 @@
     width: -webkit-calc(100% - (#{$spacing-unit} / 2));
     width:         calc(100% - (#{$spacing-unit} / 2));
   }
+  .markdown-body {
+    ul, ol {
+      padding-left: 0;
+    }
+  }
 }
 
 .social-media-list li {
@@ -41,4 +46,20 @@
   +li {
     padding-top: 0;
   }
+}
+
+.markdown-body ul.post-meta {
+  padding-left: 0;
+}
+
+.post-meta {
+  margin-left: 0;
+  li {
+    display: inline-block;
+    margin-right: 1em;
+  }
+}
+
+.post-meta li[itemprop="author"] {
+  display: none;
 }

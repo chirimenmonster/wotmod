@@ -5,17 +5,28 @@ layout: default
 
   <header class="post-header">
     <h1 class="post-title" itemprop="name headline">{{ page.title | escape }}</h1>
-    <p class="post-meta">
-      {% assign date_format = site.minima.date_format | default: "%b %-d, %Y" %}
-      <time datetime="{{ page.date | date_to_xmlschema }}" itemprop="datePublished">{{
-        page.date | date: date_format
-      }}</time>{% if page.modified %},
-      Modified: <time datetime="{{ page.modified | date_to_xmlschema }}" itemprop="dateModified">{{
-        page.modified | date: date_format
-      }}</time>{% endif %}
+    {% assign date_format = site.minima.date_format | default: "%b %-d, %Y" %}
+    <ul class="post-meta">
+      <li>
+        <time datetime="{{ page.date | date_to_xmlschema }}" itemprop="datePublished">
+        {{ page.date | date: date_format }}</time>
+      </li>
+      {% if page.modified %}
+      <li>
+        Modified: <time datetime="{{ page.modified | date_to_xmlschema }}" itemprop="dateModified">
+        {{ page.modified | date: date_format }}</time>
+      </li>
+      {% endif %}
       {% if page.author %}
-        • <span itemprop="author" itemscope itemtype="http://schema.org/Person"><span itemprop="name">{{ page.author }}</span></span>
-      {% endif %}</p>
+      <li itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">{{ page.author }}</span>
+      </li>
+      {% elsif site.author %}
+      <li itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">{{ site.author }}</span>
+      </li>
+      {% endif %}
+    </ul>
   </header>
 
   <div class="post-content" itemprop="articleBody">
