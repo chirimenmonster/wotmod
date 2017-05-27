@@ -3,7 +3,7 @@ layout: post
 title: WoT の主砲マーカーの画像
 date: 2017-05-27 14:00 +0900
 ---
-WoT の主砲マーカー (Gun Marker) は `AvatarInputHandler.control.modes._FlashGunMarker` で作成されます。
+WoT の主砲マーカー (Gun Marker) は `AvatarInputHandler.control_modes._FlashGunMarker` で作成されます。
 表示系のスクリプトやデータは SWF ファイル `sniperCrosshair.swf` から読まれますが、
 データの実体の多くは `sniperCrosshair.swf` からインポートされている `crosshairControls.swf` に置かれています。
 
