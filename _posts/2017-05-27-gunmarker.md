@@ -101,7 +101,7 @@ A字型I ～ III を照準タイプ別にまとめると以下のようになり
 
 | shape | image | A字型I (ID=66) |
 |:---:|:---:|:---:|
-| 55 | 54 | - |
+| 55 | 54 | 照準していないとき
 | 57 | 56 | not_pierced
 | 59 | 58 | little_pierced
 | 61 | 60 | great_pierced
