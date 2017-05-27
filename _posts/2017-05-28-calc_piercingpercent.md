@@ -1,7 +1,8 @@
 ---
-layout: page
+layout: post
 title: WoT 装甲貫通インジケータにおける装甲貫通率の計算
 mathjax: true
+date: 2017-05-28 08:00 +0900
 ---
 WoT の装甲貫通インジケータで使用されている装甲貫通率の算定方法をまとめました。
 
@@ -36,7 +37,7 @@ $$
 P =
 \begin{cases}
 P_{100} & \text{($L \leq 100$)}\\
-P_{100} + ( P_{500} - P_{100} ) \cdot (L - 100)/400 & \text{($100 < L < L_{\text{max}}$)} \\
+P_{100} + ( P_{500} - P_{100} ) \cdot (L - 100)/(500 - 100) & \text{($100 < L < L_{\text{max}}$)} \\
 0 & \text{($L \geq L_{\text{max}}$)}
 \end{cases}
 $$
