@@ -1,6 +1,7 @@
 ---
-layout: page
-title: 着弾点の算出 (砲弾の軌道)
+layout: post
+title: 弾道計算
+date: 2017-05-31 23:00 +0900
 mathjax: true
 ---
 WoT の砲弾は主砲の付け根から主砲の方向に向けて発射され、
@@ -11,7 +12,7 @@ WoT の砲弾は主砲の付け根から主砲の方向に向けて発射され�
 
 ## モジュール
 
-砲弾の軌道の計算は VehicleGunRotator.VehicleGunRotator クラスの __getGunMarkerPosition() で行われています。
+砲弾の軌道の計算は VehicleGunRotator.VehicleGunRotator クラスの __getGunMarkerPosition() の中で行われています。
 
 
 ## 砲弾パラメータ
