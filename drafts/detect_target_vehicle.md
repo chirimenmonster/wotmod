@@ -1,9 +1,10 @@
 ---
 layout: page
 title: 照準車輌の特定
+sitemap: false
 mathjax: true
 ---
-**作成中**
+**(作成中)**
 
 砲の向きなどから現在どの車輌を照準しているか調べるのは VehicleGunRotator.VehicleGunRotator クラスの __getGunMarkerPosition() で行われている。
 
