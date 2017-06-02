@@ -3,19 +3,19 @@
 # Edit theme's home layout instead if you wanna make some changes
 # See: https://jekyllrb.com/docs/themes/#overriding-theme-defaults
 layout: home
-#layout: page
 title: "World of Tanks: Mod"
 date: 2017-05-21 20:00 +0900
+last_modified_at: 2017-06-02 17:30 +0900
 ---
 World of Tanks の mod 開発に関する情報のまとめです。
 
 # Contents
-+ [Mod Packages](mod_packages):
++ [Mod Packages](mod_packages/):
 拡張子が .wotmod の mod に関する情報です
-+ [仮想ファイルシステム (ResMgr, paths.xml)](docs/vfs)
-+ [Python で作成する mod](docs/mod_python)
++ [仮想ファイルシステム (ResMgr, paths.xml)](docs/vfs.html)
++ [Python で作成する mod](docs/mod_python.html)
 + ActionScript3 (Flash)
-+ [フォント](docs/wot_fonts)
++ [フォント](docs/wot_fonts.html)
 + 国際化メッセージ (gettext)
 + サウンド
 + スキン
