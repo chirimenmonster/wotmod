@@ -1,6 +1,7 @@
 ---
 layout: page
 title: 衝突判定
+sitemap: false
 mathjax: true
 ---
 **(作成中)**
