@@ -8,6 +8,22 @@ mathjax: true
 
 衝突判定。
 
+## 関数
+
++ computeProjectileTrajectory()：
+指定された時間の範囲で砲弾の軌道を計算し、衝突判定を行う座標列を取得します。
+時間の範囲は `SERVER_TICK_LENGTH` である 0.1 秒が指定されています。
++ collideVehiclesAndStaticScene():
+砲弾の軌道 (線分) が指定のエンティティ群と交差するかどうかを検査します。
+砲弾の軌道は2点で指定します。
+交差する場合は、交点および交差したエンティティの情報を返します。
++ collideWithSpaceBB():
+砲弾の軌道 (線分) が地形境界と交わるかどうかを検査します。
+砲弾の軌道が地形境界と交わる場合はその交点を返します。
+
+
+## computeProjectileTrajectory
+
 砲弾の軌道は `SERVER_TICK_LENGTH` である 0.1 秒刻みで計算されますが、
 衝突の判定の際にはさらに細部を分割して計算されます。
 
@@ -43,7 +59,7 @@ except AttributeError:
 ```
 
 
-## 計算手順
+### 計算手順
 
 最初に始点から終点までの平面上の距離の2乗を求めます。
 
@@ -58,3 +74,95 @@ $$
 $$
 p_e = v \cdot t_e + \frac{1}{2} g \cdot {t_e}^2
 $$
+
+
+## collideVehiclesAndStaticScene
+
+
+```python
+for curCheckPoint in checkPoints:
+    testRes = collideVehiclesAndStaticScene(prevCheckPoint, curCheckPoint, testEntities)
+```
+
+scripts/client/ProjectileMover.py
+
+```python
+def collideVehiclesAndStaticScene(startPoint, endPoint, vehicles, collisionFlags = 128, skipGun = False):
+    testResStatic = BigWorld.wg_collideSegment(BigWorld.player().spaceID, startPoint, endPoint, collisionFlags)
+    testResDynamic = collideEntities(startPoint, endPoint if testResStatic is None else testResStatic[0], vehicles, skipGun)
+    if testResStatic is None and testResDynamic is None:
+        return
+    else:
+        distDynamic = 1000000.0
+        if testResDynamic is not None:
+            distDynamic = testResDynamic[0]
+        distStatic = 1000000.0
+        if testResStatic is not None:
+            distStatic = (testResStatic[0] - startPoint).length
+        if distDynamic <= distStatic:
+            dir = endPoint - startPoint
+            dir.normalise()
+            return (startPoint + distDynamic * dir, testResDynamic[1])
+        return (testResStatic[0], None)
+        return
+```
+
+scripts/client/ProjectileMover.py
+
+`startPoint` から `endPoint` に砲弾が移動する場合に、
+`entities` で指定した対象物群に衝突するものがあるどうかを調べます。
+衝突する場合は `startPoint` に最も近いものが選ばれます。
+返り値は `dist` と EntityCollisionData のタプルで、
+`dist` は `startPoint` からの衝突する対象物の距離、
+EntityCollisionData は namedtuple の派生クラスで、
+衝突したエンティティのインスタンス、衝突角度、衝突部の装甲厚からなります。
+
+```python
+def collideEntities(startPoint, endPoint, entities, skipGun = False):
+    res = None
+    dir = endPoint - startPoint
+    endDist = dir.length
+    dir.normalise()
+    for entity in entities:
+        collisionResult = entity.collideSegment(startPoint, endPoint, skipGun)
+        if collisionResult is None:
+            continue
+        dist = collisionResult[0]
+        if dist < endDist:
+            endPoint = startPoint + dir * dist
+            endDist = dist
+            res = (dist, EntityCollisionData(entity, collisionResult.hitAngleCos, collisionResult.armor))
+
+    return res
+```
+
+```python
+class EntityCollisionData(namedtuple('collisionData', ('entity', 'hitAngleCos', 'armor'))):
+```
+
+entity が車輌の場合の collideSegment は scripts/client/Vehicle.py の
+クラス Vehicle　(BigWorld.Entity の派生クラス) で定義されている。
+
+グローバル座標系から車輌モジュール局所座標系への変換マトリクスを作成する。
+変換マトリクスは履帯 (車台)、車体、砲塔、主砲それぞれに作成され、
+各局所座標系で衝突判定が行われる。
+
+```python
+tempCol = chassis['hitTester'].localHitTest(compMatrix.applyPoint(startPoint), compMatrix.applyPoint(endPoint))
+if tempCol is not None:
+    for dist, _, hitAngleCos, matKind in tempCol:
+        if res is None or res[0] >= dist:
+            matInfo = chassis['materials'].get(matKind)
+            res = SegmentCollisionResult(dist, hitAngleCos, matInfo.armor if matInfo is not None else 0)
+```
+
+モジュールデータである chassis などは、クラス VehicleDescr (scripts/common/items/vehicles.py) の属性として取得できる。
+
+
+scripts/common/ModelHitTester.py
+
+```python
+SegmentCollisionResult = namedtuple('SegmentCollisionResult', ('dist', 'hitAngleCos', 'armor'))
+```
+
+ 
