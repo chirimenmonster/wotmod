@@ -3,8 +3,29 @@ layout: post
 title: WoT 装甲貫通インジケータにおける装甲貫通率の計算
 mathjax: true
 date: 2017-05-28 08:00 +0900
+last_modified_at: 2017-06-07 12:00 +0900
 ---
 WoT の装甲貫通インジケータで使用されている装甲貫通率の算定方法をまとめました。
+
+## 装甲貫通率の計算
+
+### getShotResult
+
+装甲貫通率の計算は
+`scripts/client/AvatarInputHandler/gun_marker_ctrl.py` の
+関数 `getShotResult` で行われています (WoT 0.9.19.0.1 の場合)。
+
+`getShotResult` は判定結果として
+クラス `SHOT_RESULT` 内で定義されている定数のいずれかを返します。
+`SHOT_RESULT` は `scripts/client/AvatarInputHandler/aih_constants.py` で定義されています。
+
+| 値 | 変数名 | 概要 |
+|:---:|:---|:---|
+| 0 | SHOT_RESULT.UNDEFINED | 判定対象外 (味方など) |
+| 1 | SHOT_RESULT.NOT_PIERCED | 非貫通 |
+| 2 | SHOT_RESULT.LITTLE_PIERCED　| やや貫通 |
+| 3 | SHOT_RESULT.GREAT_PIERCED | ほぼ貫通 |
+
 
 ### 着弾距離の算定
 
@@ -59,7 +80,18 @@ R &= 100 + (t - P) / P \times 100　\\
 \end{align}
 $$
 
-### 装甲貫通インジケータの画像の選択
+## 装甲貫通インジケータの画像の選択
+
+### ShotResultIndicatorPlugin
+
+装甲貫通インジケータの画像の選択は
+クラス `ShotResultIndicatorPlugin` の
+関数 `__updateColor` で行われています。
+`ShotResultIndicatorPlugin` は
+`scripts/client/gui/Scaleform/daapi/view/battle/shared/crosshair/plugins.py`
+で定義されています (WoT 0.9.19.0.1 の場合)。
+
+### 画像の選択
 
 貫通率 $R$ の値によって、装甲貫通インジケータの評価が決まります。
 評価は3段階で、評価に応じて装甲貫通インジケータの画像が選択されます。

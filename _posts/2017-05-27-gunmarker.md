@@ -2,6 +2,7 @@
 layout: post
 title: WoT の主砲マーカーの画像
 date: 2017-05-27 14:00 +0900
+last_modified_at: 2017-06-07 13:00 +0900
 ---
 WoT の主砲マーカー (Gun Marker) は `AvatarInputHandler.control_modes._FlashGunMarker` で作成されます。
 表示系のスクリプトやデータは SWF ファイル `sniperCrosshair.swf` から読まれますが、
@@ -13,19 +14,33 @@ WoT の主砲マーカー (Gun Marker) は `AvatarInputHandler.control_modes._Fl
 
 ## 貫通インジケータ
 
-クラス `_FlashGunMarker` 内の定義では、
+### SHOT_RESULT_TO_DEFAULT_COLOR, SHOT_RESULT_TO_ALT_COLOR
+
+貫通インジケータの色と貫通可能性との対応表は
+`scripts/client/gui/Scaleform/daapi/view/battle/shared/crosshair/settings.py`
+に定義されています。
+
 貫通インジケータは貫通可能性とカラーブラインドモードの有無に応じて以下の色となります。
 
 ここで色の名前は後述するように SWF 内で定義される sprite の各フレームにつけられたラベル FrameLabel.name を指します。
 
 | color blind mode | stats | colors |
 |:---:|:---:|:---:|
-| default     | not_pierced    | red    |
-| default     | little_pierced | orange |
-| default     | great_pierced  | green  |
-| color_blind | not_pierced    | purple |
-| color_blind | little_pierced | yellow |
-| color_blind | great_pierced  | green  |
+| DEFAULT_COLOR | NOT_PIERCED    | red    |
+| DEFAULT_COLOR | LITTLE_PIERCED | orange |
+| DEFAULT_COLOR | GREAT_PIEARCED | green  |
+| ALT_COLOR | NOT_PIERCED    | purple |
+| ALT_COLOR | LITTLE_PIERCED | yellow |
+| ALT_COLOR | GREAT_PIEARCED | green  |
+
+### setGunMarkerColor
+
+インジケータの色の切り替えは
+クラス `CrosshairPanelContainer` の
+関数 `setGunMarkerColor` で行います。
+
+この関数は指定された色をラベルにもつ主砲マーカーの画像を設定します。
+
 
 ## crosshairControls.swf
 
