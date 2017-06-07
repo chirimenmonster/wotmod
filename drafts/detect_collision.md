@@ -6,7 +6,23 @@ mathjax: true
 ---
 **(作成中)**
 
-衝突判定。
+衝突判定は
+クラス VehicleGunRotator の
+メソッド __getGunMarkerPosition で行われます。
+VehicleGunRotator は `scripts/client/VehicleGunRotator.py` で定義されています。
+
+__getGunMarkerPosition の返り値は、
+着弾点、着弾点での砲弾の方向ベクトル、着弾散布界の直径(1)、着弾散布界の直径(2)、衝突データのタプルで、
+衝突データは衝突までの距離と、車輌衝突情報のタプル、
+さらに衝突車輌情報は衝突したエンティティ、衝突角度、衝突部の装甲厚の名前付きタプルです。
+
+```python
+return (endPos,
+ dir,
+ markerDiameter,
+ idealMarkerDiameter,
+ collData)
+```
 
 ## 関数
 
@@ -84,7 +100,21 @@ for curCheckPoint in checkPoints:
     testRes = collideVehiclesAndStaticScene(prevCheckPoint, curCheckPoint, testEntities)
 ```
 
-scripts/client/ProjectileMover.py
+### collideVehiclesAndStaticScene
+
+関数 collideVehiclesAndStaticScene は
+`scripts/client/ProjectileMover.py` で定義されており、
+`startPoint` から `endPoint` に砲弾が移動する場合に、
+車輌または静止オブジェクトに衝突するかどうかを調べます。
+
+実際の衝突判定は、
+車輌については関数 collideEntities で、
+静止オブジェクトについては関数 BigWorld.wg_collideSegment で行われます。
+
+衝突する場合は、`startPoint` に最も近いものが選ばれます。
+
+返り値は、衝突までの距離と、衝突車輌の情報 (衝突したエンティティ、衝突角度、衝突部の装甲厚) のタプルです。
+静止オブジェクトの場合、タプルの2番目の値は None となります。
 
 ```python
 def collideVehiclesAndStaticScene(startPoint, endPoint, vehicles, collisionFlags = 128, skipGun = False):
@@ -107,15 +137,18 @@ def collideVehiclesAndStaticScene(startPoint, endPoint, vehicles, collisionFlags
         return
 ```
 
-scripts/client/ProjectileMover.py
+### collideEntities
 
+関数 collideEntities は
+`scripts/client/ProjectileMover.py`
+で定義されており、
 `startPoint` から `endPoint` に砲弾が移動する場合に、
 `entities` で指定した対象物群に衝突するものがあるどうかを調べます。
 衝突する場合は `startPoint` に最も近いものが選ばれます。
 返り値は `dist` と EntityCollisionData のタプルで、
 `dist` は `startPoint` からの衝突する対象物の距離、
 EntityCollisionData は namedtuple の派生クラスで、
-衝突したエンティティのインスタンス、衝突角度、衝突部の装甲厚からなります。
+衝突したエンティティ、衝突角度、衝突部の装甲厚からなります。
 
 ```python
 def collideEntities(startPoint, endPoint, entities, skipGun = False):
@@ -165,4 +198,8 @@ scripts/common/ModelHitTester.py
 SegmentCollisionResult = namedtuple('SegmentCollisionResult', ('dist', 'hitAngleCos', 'armor'))
 ```
 
- 
+```python
+def localHitTest(self, start, stop, value = 0):
+    return self.__getBspModel(value).collideSegment(start, stop)
+```
+
