@@ -37,7 +37,7 @@ Python 2.7 が動作すれば使用可能ですが、
 2. wot-debugserver の python フォルダに移動する
 3. python2 -m compileall . でコンパイルする (.pyc ファイルの作成)
 4. XVM の packages フォルダ (<WoT_game_folder>/res_mods/mods/packages) に replserver というフォルダを作成
-5. 2. の python フォルダを 4. の replserver フォルダにコピー (<WoT_game_folder>/res_mods/mods/packages/replserver/python)
+5. 2 の python フォルダを 4 の replserver フォルダにコピーする (<WoT_game_folder>/res_mods/mods/packages/replserver/python)
 
 ## 実行
 
