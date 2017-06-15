@@ -36,3 +36,17 @@ flash.active(True)
 `path` を省略した場合はデフォルトの `gui/scaleform` が設定され、
 `res_mods/<WOT_VERSION>/gui/scaleform` となります。
 (実際には仮想ファイルシステムの検索ルールに従います)
+
+
+```python
+from gui.Scaleform.Flash import Flash
+flash = Flash('test.swf', path='.')
+flash.movie.backgroundAlpha = 0.0
+flash.movie.scaleMode = 'NoScale'
+flash.component.heightMode = 'PIXEL'
+flash.component.widthMode = 'PIXEL'
+flash.component.wg_inputKeyMode = 2
+flash.component.focus = False
+flash.component.moveFocus = False
+flash.active(True)
+```
