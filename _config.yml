@@ -20,6 +20,7 @@ description: > # this means to ignore newlines until "baseurl:"
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "https://wotmod.mtm-gaming.org" # the base hostname & protocol for your site, e.g. http://example.com
 twitter_username: ChirimenSpiral
+twitter_image_url: "https://mtm-gaming.org/iamges/KV-2_Crushing.png"
 github_username:  chirimenmonster
 google_analytics: UA-59819729-6
 author: chirimen

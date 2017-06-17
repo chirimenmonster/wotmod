@@ -1,0 +1,5 @@
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:site" content="{{ site.twitter_username }}" />
+<meta name="twitter:title" content="{% if page.title %}{{ page.title | escape }}{% else %}{{ site.title | escape }}{% endif %}" />
+<meta name="twitter:description" content="{{ page.excerpt | default: site.description | strip_html | normalize_whitespace | truncate: 200 | escape }}" />
+<meta name="twitter:image" content="{{ site.twitter_image_url }}" />
