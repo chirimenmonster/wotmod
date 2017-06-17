@@ -1,11 +1,9 @@
 ---
-layout: page
+layout: post
 title: wot-debugserver を使ったデバッグ
-sitemap: false
+date: 2017-06-17 11:00 +0900
 ---
-**(作成中)**
-
-REPL (Read-Eval-Print Loop) による WoT のデバッグ手法を使ってみました。
+REPL (対話型評価環境) による WoT のデバッグ手法を使ってみました。
 実行中に WoT クライアントに対話的に接続して、あれこれできます。
 mod の開発とかに有効です。
 
@@ -46,3 +44,28 @@ Python 2.7 が動作すれば使用可能ですが、
 3. MSYS2 のコンソールを立ち上げる
 4. wot-debugserver の python フォルダの client.py を実行する
 
+## 入力
+
+WoT の画面に文字を貼り付けてみます。
+wot-debugserver のコンソールに以下のコードを入力します。
+
+```python2
+import GUI
+t = GUI.Text()
+t.text = 'Hello World'
+t.colour = (255, 255, 0, 240)
+GUI.addRoot(t)
+```
+
+結果です。
+画面中央に 'Hello World' の文字が出力されました。
+
+![文字の表示](/resources/image_20170617_16.png)
+
+
+## GUI, GUI.Text の仕様
+
+GUI, GUI.Text は BigWorld で定義されているモジュールです。
+仕様についてはたぶん以下のリンクが参考になります。
+
++ [GUI Module Reference](http://monstrofil.xyz/docs/client/doc/GUI.html)

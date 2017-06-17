@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Flash 開発環境の作成
+title: Flash 開発環境の作成 - WoT mod のための SWF 作成 (1)
 date: 2017-06-15 17:45 +0900
 ---
 Flash オブジェクト （SWF ファイル) の作成には
