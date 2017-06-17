@@ -19,7 +19,7 @@ Python スクリプトによって SWF を WoT の画面に表示する手順を
 SWF の外部から制御を行うにはパブリック関数を SWF 内に定義します。
 
 例えば
-[Resize イベントの捕捉 - WoT mod のための SWF 作成 (3)](2017/06/17/create_swf_catch_resized.html)
+[Resize イベントの捕捉 - WoT mod のための SWF 作成 (3)](/2017/06/17/create_swf_catch_resized.html)
 でいうと、
 クラス `Main` に `public function` を定義します。
 関数名は任意ですが、
