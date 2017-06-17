@@ -1,7 +1,7 @@
 ---
-layout: page
+layout: post
 title: Python スクリプトからの SWF 制御
-sitemap: false
+date: 2017-06-17 20:50 +0900
 ---
 Python スクリプトで WoT 画面に表示した SWF
 の制御を行う方法についての解説です。
@@ -47,6 +47,10 @@ public function as_test(param1:int):void
 ```python
 f.movie.root.as_test(100)
 ```
+
+`f` は SWF を読んだ Flash クラスのインスタンスです。
+そのプロパティ `movie.root` に
+先程定義したパブリック関数 `as_test` がぶら下がっています。
 
 予定通り中央の黄色の円が右に100ピクセル移動しました。
 
