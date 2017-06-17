@@ -2,9 +2,10 @@
 layout: post
 title: WoT に SWF を貼り付ける
 date: 2017-06-17 11:05 +0900
+last_modified_at: 2017-06-18 06:50 +0900
 ---
 WoT の画面に SWF を貼り付けてみます。
-[wot-debugserver を使ったデバッグ](http://localhost:4000/2017/06/17/wot-debugserver.html)
+[wot-debugserver を使ったデバッグ](/2017/06/17/wot-debugserver.html)
 で解説した REPL (対話型評価環境) を使います。
 
 
