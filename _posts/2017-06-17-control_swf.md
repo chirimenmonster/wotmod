@@ -2,6 +2,7 @@
 layout: post
 title: Python スクリプトからの SWF 制御
 date: 2017-06-17 20:50 +0900
+last_modified_at: 2017-06-18 07:30 +0900
 ---
 Python スクリプトで WoT 画面に表示した SWF
 の制御を行う方法についての解説です。
