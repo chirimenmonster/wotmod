@@ -22,7 +22,22 @@ layout: default
         <span itemprop="name">{{ page.author | default: site.author }}</span>
       </li>
       {% endif %}
+      <li>
+        <div itemprop="image" itemscope itemtype="http://schema.org/ImageObject">
+            <meta itemprop="url" content="http://mtm-gaming.org/images/KV-2_Crushing.png">
+            <meta itemprop="width" content="1170">
+            <meta itemprop="height" content="406">
+        </div>
+        <div itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+            <meta itemprop="name" content="mtm-gaming">
+            <div itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+                <meta itemprop="url" content="http://mtm-gaming.org/images/MTM-emblem_200x200.png">
+            </div>
+        </div>
+      </li>
     </ul>
+    <div>
+    </div>
   </header>
 
   <div class="post-content" itemprop="articleBody">
