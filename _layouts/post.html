@@ -23,17 +23,18 @@ layout: default
       </li>
       {% endif %}
       <li>
-        <div itemprop="image" itemscope itemtype="http://schema.org/ImageObject">
+        <div itemscope itemprop="image" itemtype="http://schema.org/ImageObject">
             <meta itemprop="url" content="http://mtm-gaming.org/images/KV-2_Crushing.png">
             <meta itemprop="width" content="1170">
             <meta itemprop="height" content="406">
         </div>
-        <div itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+        <div itemscope itemprop="publisher" itemtype="http://schema.org/Organization">
             <meta itemprop="name" content="mtm-gaming">
             <div itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
                 <meta itemprop="url" content="http://mtm-gaming.org/images/MTM-emblem_200x200.png">
             </div>
         </div>
+        <meta itemscope itemprop="mainEntityOfPage" href="{{ page.url }}">
       </li>
     </ul>
     <div>
