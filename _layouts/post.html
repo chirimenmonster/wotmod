@@ -16,6 +16,8 @@ layout: default
         Modified: <time datetime="{{ page.last_modified_at | date_to_xmlschema }}" itemprop="dateModified">
         {{ page.last_modified_at | date: date_format }}</time>
       </li>
+      {% else %}
+      <meta itemprop="dateModified" content="{{ page.date | date_to_xmlschema }}">
       {% endif %}
       {% if page.author or site.author %}
       <li itemprop="author" itemscope itemtype="http://schema.org/Person">
