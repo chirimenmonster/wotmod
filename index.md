@@ -3,9 +3,9 @@
 # Edit theme's home layout instead if you wanna make some changes
 # See: https://jekyllrb.com/docs/themes/#overriding-theme-defaults
 layout: home
-title: "World of Tanks: Mod"
+title: "World of Tanks: Mod Dev"
 date: 2017-05-21 20:00 +0900
-last_modified_at: 2017-06-17 16:00 +0900
+last_modified_at: 2017-06-25 21:30 +0900
 ---
 World of Tanks の mod 開発に関する情報のまとめです。
 

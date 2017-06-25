@@ -2,6 +2,7 @@
 layout: post
 title: WoT のロビー制御
 date: 2017-06-24 17:25 +0900
+last_modified_at: 2017-06-24 21:30 +0900
 ---
 WoT のクライアントはその大部分が Python で書かれていて、
 フロントエンドとなる swf のコンポーネントを制御する形になっています。
@@ -135,12 +136,14 @@ tankCarousel.flashObject.visible = True  # True に戻すと表示されるが�
 
 表示については他にもプロパティ `alpha` があり、
 この値を 0 にすると完全透過になって表示されなくなります。
-ただし UI 自体は操作可能です。
+~~ただし UI 自体は操作可能です。~~
+このプロパティも操作すると UI が動作しなくなるケースがありました。
 
 ```python
 tankCarousel.flashObject.alpha = 0.0 # 初期状態は 1.0。 0 を代入で見えなくなるが UI 操作は可能
 tankCarousel.flashObject.alpha = 1.0 # 1.0 にすると通常の表示。副作用はなさそう
 ```
+
 
 以下は `hangar.flashObject.alpha = 0.0` に設定した状態です。
 
