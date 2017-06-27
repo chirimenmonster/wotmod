@@ -23,6 +23,85 @@ mathjax: true
 return [descr.gun['shotDispersionAngle'] * aimingFactor, descr.gun['shotDispersionAngle'] * idealFactor]
 ```
 
+### 移動速度
+
+$$
+f_m = ( v \cdot F_m ) ^2
+$$
+
+$v$: 移動速度 `vehicleSpeed`,
+$F_m$: 移動時拡散係数 `chassisShotDispersionFactorsMovement`
+
+### 車体旋回速度
+
+$$
+f_r = ( \omega_c \cdot F_r ) ^2
+$$
+
+$\omega_c$: 車体旋回速度 `vehicleRSpeed`,
+$F_r$: 車体旋回時拡散係数 `chassisShotDispersionFactorsRotation`
+
+### 砲塔旋回速度
+
+$$
+f_t = ( \omega_t \cdot F_t )^2
+$$
+
+$\omega_t$: 砲塔旋回速度 `turretRotationSpeed`,
+$F_t$: 砲塔旋回時拡散係数 `gunShotDispersionFactorsTurretRotation`
+
+
+### 砲撃
+
+$$
+f_s = (F_s) ^2
+$$
+
+$F_s$: 砲撃時拡散係数? (要調査) `shotDispersionFactors['afterShot']` または `shotDispersionFactors['afterShotInBurst']` 
+
+
+### additiveFactor
+
+aimingBooster がないときは VehicleDescriptor のプロパティ `miscAttrs['additiveShotDispersionFactor']` が使用されます。
+
+aimingBooster があるときは
+`self.__aimingBooster.updateVehicleAttrFactors(descriptor, factors, None)`
+で値が更新されます (要調査)。
+
+aimingBooster はスタビライザー `aimingStabilizerBattleBooster`
+を装備している場合に有効になります
+(メソッド `__processVehicleEquipments` での処理)。
+
+
+### idealFactor
+
+車輌の移動などを考慮した、最も収束した場合の照準拡散係数です。
+静止状態であれば 1.0 となります　($F_d$ が 1.0 の場合)。
+
+$$
+f_{ideal} = F_d \cdot \sqrt{1 + (f_m + f_r + f_t + f_s) \cdot (F_a)^2}
+$$
+
+$F_d$: `shotDispMultiplierFactor`,
+$F_a$: `additiveFactor` (`__getAdditiveShotDispersionFactor` で取得) (要調査)
+
+
+### aimingFactor
+
+照準の収束計算の結果から求められる、現時点での照準拡散係数です。
+
+計算の結果 $f_{ideal}$ を下回る場合には $f_{aim} = f_{ideal}$ に設定されます (つまり照準が収束しきったことを表します)。
+同時に $f_{start} = f_{ideal}$ も設定されます。
+
+収束が開始するときの初期値は $f_{start}$ で、時間とともに減少します。
+
+$$
+f_{aim} = f_{start} \cdot e^{(T_{start} - T_{current}) / T_{aim}}
+$$
+
+時間 $T_{aim}$ が経過したとき、$e^{-1} = 0.367879$ なので $f_{aim} = 0.367879\cdot f_{start}$ になります。
+
+
 ## updateTargetingInfo
 
 `updateTargetingInfo` は戦闘開始時にクライアント内部から呼び出され、
@@ -36,7 +115,7 @@ return [descr.gun['shotDispersionAngle'] * aimingFactor, descr.gun['shotDispersi
 |gunPitch|(gunRotator 用データ)|主砲仰俯角|
 |maxTurretRotationSpeed|(gunRotator 用データ)|最大砲塔旋回速度|
 |maxGunRotationSpeed|(gunRotator 用データ)|最大主砲回転速度|
-|shotDispMultiplierFactor|`__aimingInfo[2]`||
+|shotDispMultiplierFactor|`__aimingInfo[2]`|(要調査)|
 |gunShotDispersionFactorsTurretRotation|`__aimingInfo[3]`|砲塔回転時の拡散係数|
 |chassisShotDispersionFactorsMovement|`__aimingInfo[4]`|移動時の拡散係数|
 |chassisShotDispersionFactorsRotation|`__aimingInfo[5]`|車体旋回時の拡散係数|
@@ -59,3 +138,11 @@ return [descr.gun['shotDispersionAngle'] * aimingFactor, descr.gun['shotDispersi
 `SERVER_TICK_LENGTH` ごとに
 コールバックとして設定したメソッド `__onTick` で現在の照準拡散が計算されます。
 
+
+## 要確認項目
+
++ additiveFactor: おそらくスタビライザーの有無による係数
++ shotDispMulitiplierFactor: 砲手のプライマリスキル?
++ aimingTime: $T_{aim}$ 改良型射撃装置 (ガンレイ) ?
++ gunShotDispersionFactorsTurretRotation: 速射 (スナップショット) スキルと関係?
++ chassisShotDispersionFactorsMovement： スムーズな運転 スキルと関係?
