@@ -57,7 +57,10 @@ $$
 f_s = (F_s) ^2
 $$
 
-$F_s$: 砲撃時拡散係数? (要調査) `shotDispersionFactors['afterShot']` または `shotDispersionFactors['afterShotInBurst']` 
+$F_s$: 砲撃時拡散係数
+
+砲撃時拡散係数は、射撃後の場合 `shotDispersionFactors['afterShot']` が使用され、
+主砲破損時には `shotDispersionFactors['afterShotInBurst']` が使用されます。 
 
 
 ### additiveFactor
@@ -86,6 +89,7 @@ $F_d$: `shotDispMultiplierFactor`,
 $F_a$: `additiveFactor` (`__getAdditiveShotDispersionFactor` で取得) (要調査)
 
 
+
 ### aimingFactor
 
 照準の収束計算の結果から求められる、現時点での照準拡散係数です。
@@ -96,19 +100,12 @@ $F_a$: `additiveFactor` (`__getAdditiveShotDispersionFactor` で取得) (要調�
 収束が開始するときの初期値は $f_{start}$ で、時間とともに減少します。
 
 $$
-f_{aim} = f_{start} \cdot e^{(T_{start} - T_{current}) / T_{aim}}
+f_{aim} = f_{start} \cdot e^{(T_{start} - T_{current}) / T_{aim}'}
 $$
 
-時間 $T_{aim}$ が経過したとき、$e^{-1} = 0.367879$ なので $f_{aim} = 0.367879\cdot f_{start}$ になります。
+時間 $T_{aim}'$ が経過したとき、$e^{-1} = 0.367879$ なので $f_{aim} = 0.367879\cdot f_{start}$ になります。
 
-車輌データは拡散が1/3に収束する時間で定義されています。
-たとえば IS-7 の照準時間は 3.2 秒ですので、
-この場合の $T_{aim}$ は以下のように計算されます
-(ただし内部データは 2.90629529953 となっていました)。
 
-$$
-T_{aim} = 3.2 / \log 3 = 2.91276552521
-$$
 
 ## updateTargetingInfo
 
@@ -123,11 +120,42 @@ $$
 |gunPitch|(gunRotator 用データ)|主砲仰俯角|
 |maxTurretRotationSpeed|(gunRotator 用データ)|最大砲塔旋回速度|
 |maxGunRotationSpeed|(gunRotator 用データ)|最大主砲回転速度|
-|shotDispMultiplierFactor|`__aimingInfo[2]`|(要調査)|
+|shotDispMultiplierFactor|`__aimingInfo[2]`|砲手スキルによる拡散係数|
 |gunShotDispersionFactorsTurretRotation|`__aimingInfo[3]`|砲塔回転時の拡散係数|
 |chassisShotDispersionFactorsMovement|`__aimingInfo[4]`|移動時の拡散係数|
 |chassisShotDispersionFactorsRotation|`__aimingInfo[5]`|車体旋回時の拡散係数|
 |aimingTime|`__aimingInfo[6]`|照準時間|
+
+### shotDispMultiplierFactor
+
+砲手スキルによる拡散係数です。
+
+$$
+F_d = \frac{0.875}{0.5 + 0.00375\cdot _cS}
+$$
+
+砲手スキル補正 (車長補正、戦友ありで 115.5) での理論値は 0.937709310114 になります(ただし内部データは 0.9375146627430 となっていました)。
+
+$$
+\frac{0.875}{0.5 + 0.00375\times 115.5} = 0.937709310114
+$$
+
+
+### aimingTime
+
+照準時間です。
+
+$$
+T'_{aim} = T_{aim}\cdot\frac{0.875}{0.5 + 0.00375\cdot _cS}
+$$
+
+スペック上の IS-7 の照準時間は 3.1秒なので、
+砲手スキル補正 (車長補正、戦友ありで 115.5) で 2.906898861 になります(ただし内部データは 2.90629529953 となっていました)。
+
+$$
+T'_{aim} = 3.1\times\frac{0.875}{0.5+0.00375\times 115.5} = 2.906898861
+$$
+
 
 
 ## gunRotator
@@ -151,6 +179,6 @@ $$
 
 + additiveFactor: おそらくスタビライザーの有無による係数
 + shotDispMulitiplierFactor: 砲手のプライマリスキル?
-+ aimingTime: $T_{aim}$ 改良型射撃装置 (ガンレイ) ?
++ aimingTime: $T_{aim}$ 砲手のプライマリスキル?、改良型射撃装置 (ガンレイ) ?
 + gunShotDispersionFactorsTurretRotation: 速射 (スナップショット) スキルと関係?
 + chassisShotDispersionFactorsMovement： スムーズな運転 スキルと関係?
