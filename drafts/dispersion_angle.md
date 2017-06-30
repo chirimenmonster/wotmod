@@ -9,6 +9,9 @@ mathjax: true
 WoT の照準円は、車体の移動や射撃などによって拡散し、また、時間とともに一定量まで収束します。
 照準円の拡散と収束のルール (計算方法) についてまとめました。
 
+この文書には一部推測による、未検証の情報が含まれています。
+
+
 ## 主砲精度のカタログ値と照準円の拡散係数
 
 主砲には固有の精度を表す値が定められています。
@@ -18,125 +21,155 @@ WoT の照準円は、車体の移動や射撃などによって拡散し、ま�
 として表現されています。
 これは定数になります。
 
-照準円はこのプロパティに対する変動する拡散係数で管理されます。
+照準円の大きさはこの定数値のプロパティに、静的および動的に変動する拡散係数を乗ずる形で求められます。
+
+$$
+d = f \cdot D
+$$
+
+* $D$: 主砲に対して決められている拡散角度の基準値 shotDispersionAngle (rad)
+* $f$: 拡散係数
+* $d$: 計算された拡散角度 (rad)
+
+この計算は
+`scripts/client/Avatar.py` で定義されている
+クラス `PlayerAvatar` の
+メンバ関数 `getOwnVehicleShotDispersionAngle` で行われています。
+
+
+## 照準拡散係数 aiming factor と目標拡散係数 ideal factor
 
 拡散係数には、
-現在の照準を表す拡散係数 (aiming factor) と、
-車輌の状態に対する理想的な拡散係数 (ideal factor) があります。
+現在の照準の状態を表す照準拡散係数 (aiming factor) と、
+収束した状態に対応する目標拡散係数 (ideal factor) があります。
 
-ideal factor は収束が完了した状態に対する拡散係数ですが、
-車輌の動作や砲撃によって変動する係数です。
-例えば車輌が一定速度で移動しているときの ideal factor は一定の値となりますが、
+目標拡散係数 ideal factor は収束が完了した状態に対する拡散係数ですが、
+車輌の動作や砲撃によって変動します。
+例えば車輌が一定速度で移動しているときの目標拡散係数は一定の値となりますが、
 静止状態と比べると大きい値となっています。
 
-aiming factor は時間とともに一定割合で収束する拡散係数です。
-最小値は ideal factor で、ideal factor に達すると収束は止まります。
-車輌の動きなどによって ideal factor が増加して aiming factor を超えた場合、
-aiming factor も ideal factor と同じ値になります。
-言い換えると、ideal factor が車輌の停止などによって減少すると、
-aiming factor の収束が開始されることになります。
+照準拡散係数 aiming factor は時間とともに一定割合で収束する拡散係数です。
+照準拡散係数の最小値は目標拡散係数 ideal factor で、目標拡散係数に達すると収束は止まります。
+車輌の動きなどによって目標拡散係数が増加して照準拡散係数を超えた場合、
+照準拡散係数も目標拡散係数と同じ値になります。
+言い換えると、目標拡散係数が車輌の停止などによって減少したときに、
+照準拡散係数の収束が開始されることになります。
 
 
-### Aiming Factor
+### 照準拡散係数 aiming factor
 
 照準の収束計算の結果から求められる、現時点での照準拡散係数です。
 
+収束が開始するときの初期値は $f_{start}$ で、時間とともに減少します。
 aiming factor の下限値は ideal factor で、その値になると収束は終了します。
 
-収束が開始するときの初期値は $f_{start}$ で、時間とともに減少します。
-
 $$
-f_{aim} = f_{start} \cdot e^{(T_{start} - T_{current}) / T_{aim}'}
+f_{aim} = f_{start} \cdot e^{(t_{start} - t_{current}) / T_{aim}'}
 $$
 
-$f_{aim}$: 照準拡散係数 (aiming factor),
-$f_{start}$: 収束開始時の照準拡散係数,
-$T_{start}$: 収束開始時の時間 (s),
-$T_{current}$: 現在の時間 (s),
-$T_{aim}'$: スキルなどを考慮した照準時間
+* $f_{aim}$: 照準拡散係数 (aiming factor)
+* $f_{start}$: 収束開始時の照準拡散係数
+* $t_{start}$: 収束開始時の時間 (s)
+* $t_{current}$: 現在の時間 (s)
+* $T_{aim}'$: スキルなどを考慮した照準時間 (s)
  
 
 時間 $T_{aim}'$ が経過したとき、$e^{-1} = 0.367879$ なので $f_{aim} = 0.367879\cdot f_{start}$ になります。
+つまり、$T_{aim}'$ は拡散円の大きさが現在の $0.367879$ 倍にまで収束するのに要する時間です。
 
 
-### Ideal Factor
+#### 照準時間 aimingTime
+
+照準時間です。
+拡散円の大きさが $e^{-1} = 0.367879$ 倍になるのに必要な時間を表します。
+カタログ値の照準時間に対して砲手のプライマリスキルの補正が入ります。
+
+$$
+T_{aim}' = T_{aim}\cdot\frac{0.875}{0.5 + 0.00375\cdot S_{gunner}}
+$$
+
+* $T_{aim}'$: 照準時間
+* $T_{aim}$: 照準時間 (カタログ値)
+* $S_{gunner}$: 砲手のプライマリスキル
+
+スペック上の IS-7 の照準時間は 3.1秒なので、
+砲手スキル補正 (車長補正、換気扇ありで 115.5) で 2.906898861 になります(ただし内部データは 2.90629529953 となっていました)。
+
+$$
+T'_{aim} = 3.1\times\frac{0.875}{0.5+0.00375\times 115.5} = 2.906898861
+$$
+
+
+
+### 目標拡散係数 ideal factor
 
 車輌の移動などを考慮した、最も収束した場合の照準拡散係数です。
-静止状態であれば 1.0 となります　($F_d$ が 1.0 の場合)。
+車輌の状態はルート内の項で表現されており、完全に静止した状態であれば 1.0 となります。
 
 $$
-f_{ideal} = F_d \cdot \sqrt{1 + \{(v \cdot F_m)^2 + (\omega_c \cdot F_r)^2 + (\omega_t \cdot F_t)^2 + (F_s)^2 \} \cdot (F_a)^2}
+f_{ideal} = P \cdot \sqrt{1 + \{(v \cdot F_v)^2 + (\omega_c \cdot F_r)^2 + (\omega_t \cdot F_t)^2 + (F_s)^2 \} \cdot (F_a)^2}
 $$
 
-$f_{ideal}$: 収束完了時の照準拡散係数 (ideal factor),
-$F_d$: `shotDispMultiplierFactor`,
-$F_a$: `additiveFactor` (`__getAdditiveShotDispersionFactor` で取得) (要調査)
-$v$: 移動速度 `vehicleSpeed`,
-$F_m$: 移動時拡散係数 `chassisShotDispersionFactorsMovement`
-$\omega_c$: 車体旋回速度 `vehicleRSpeed`,
-$F_r$: 車体旋回時拡散係数 `chassisShotDispersionFactorsRotation`
-$\omega_t$: 砲塔旋回速度 `turretRotationSpeed`,
-$F_t$: 砲塔旋回時拡散係数 `gunShotDispersionFactorsTurretRotation`
-$F_s$: 砲撃時拡散係数
+* $f_{ideal}$: 目標拡散係数 (ideal factor)
+* $P$: 拡散乗数 (砲手のプライマリスキルの効果) `shotDispMultiplierFactor`
+* $F_v$: 移動時拡散係数 `chassisShotDispersionFactorsMovement`
+* $F_r$: 車体旋回時拡散係数 `chassisShotDispersionFactorsRotation`
+* $F_t$: 砲塔旋回時拡散係数 `gunShotDispersionFactorsTurretRotation`
+* $F_s$: 砲撃時拡散係数 `shotDispersionFactors`
+* $F_a$: 拡散低減係数 (スタビライザーの効果) `additiveFactor` (要調査)
+* $v$: 移動速度 `vehicleSpeed` (m/s)
+* $\omega_c$: 車体旋回速度 `vehicleRSpeed` (rad/s)
+* $\omega_t$: 砲塔旋回速度 `turretRotationSpeed` (rad/s)
 
-## getOwnVehicleShotDispersionAngle
 
-`getOwnVehicleShotDispersionAngle` は
-`scripts/client/Avatar.py` で定義されている
-クラス `PlayerAvatar` の
-メンバ関数です。
+#### 拡散乗数 shotDispMultiplierFactor
 
-この関数は、
-自車輌の VehicleDescriptor の
-プロパティ `gun['shotDispersionAngle']`
-に対して `aimingFactor`, `idealFactor` を乗じた値を返します。
-`gun['shotDispersionAngle']` は主砲のレティクルが完全に収束したときの拡散の角度です。
-
-```python
-return [descr.gun['shotDispersionAngle'] * aimingFactor, descr.gun['shotDispersionAngle'] * idealFactor]
-```
-
-### 移動速度
+拡散係数全体にかかる乗数です。砲手のプライマリスキルによる影響を受けます。
 
 $$
-f_m = ( v \cdot F_m ) ^2
+P = \frac{0.875}{0.5 + 0.00375\cdot S_{gunner}}
 $$
 
-$v$: 移動速度 `vehicleSpeed`,
-$F_m$: 移動時拡散係数 `chassisShotDispersionFactorsMovement`
+* $P$: 拡散乗数
+* $S_{gunner}$: 砲手のプライマリスキル
 
-### 車体旋回速度
-
-$$
-f_r = ( \omega_c \cdot F_r ) ^2
-$$
-
-$\omega_c$: 車体旋回速度 `vehicleRSpeed`,
-$F_r$: 車体旋回時拡散係数 `chassisShotDispersionFactorsRotation`
-
-### 砲塔旋回速度
+砲手スキル補正 (車長補正、換気扇で 115.5) での理論値は 0.937709310114 になります(ただし内部データは 0.9375146627430 となっていました)。
 
 $$
-f_t = ( \omega_t \cdot F_t )^2
+\frac{0.875}{0.5 + 0.00375\times 115.5} = 0.937709310114
 $$
 
-$\omega_t$: 砲塔旋回速度 `turretRotationSpeed`,
-$F_t$: 砲塔旋回時拡散係数 `gunShotDispersionFactorsTurretRotation`
+
+#### 移動時拡散係数 chassisShotDispersionFactorsMovement
+
+移動時の拡散係数です。
 
 
-### 砲撃
+#### 車体旋回時拡散係数 chassisShotDispersionFactorsRotation
 
-$$
-f_s = (F_s) ^2
-$$
-
-$F_s$: 砲撃時拡散係数
-
-砲撃時拡散係数は、射撃後の場合 `shotDispersionFactors['afterShot']` が使用され、
-主砲破損時には `shotDispersionFactors['afterShotInBurst']` が使用されます。 
+車体旋回時の拡散係数です。
 
 
-### additiveFactor
+#### 砲塔旋回時拡散係数 gunShotDispersionFactorsTurretRotation
+
+砲塔旋回時の拡散係数です。
+
+
+
+#### 砲撃時拡散係数　shotDispersionFactors
+
+砲撃後の精度低下を表現する拡散係数です。
+主砲破損時の精度低下もこの係数で表現されます。
+
+砲撃時拡散係数は状態に応じて以下の値を取ります。
+
+|:---|:---|
+|通常時| 0 |
+|砲撃後| `shotDispersionFactors['afterShot']` |
+|主砲破損時| `shotDispersionFactors['afterShotInBurst']`| 
+
+
+#### 拡散低減係数 additiveFactor
 
 aimingBooster がないときは VehicleDescriptor のプロパティ `miscAttrs['additiveShotDispersionFactor']` が使用されます。
 
@@ -149,9 +182,9 @@ aimingBooster はスタビライザー `aimingStabilizerBattleBooster`
 (メソッド `__processVehicleEquipments` での処理)。
 
 
+## クライアントの内部データ
 
-
-## updateTargetingInfo
+### updateTargetingInfo
 
 `updateTargetingInfo` は戦闘開始時にクライアント内部から呼び出され、
 拡散に関わる各種の内部データを設定します。
@@ -164,68 +197,15 @@ aimingBooster はスタビライザー `aimingStabilizerBattleBooster`
 |gunPitch|(gunRotator)|主砲仰俯角|
 |maxTurretRotationSpeed|(gunRotator)|最大砲塔旋回速度|
 |maxGunRotationSpeed|(gunRotator)|最大主砲回転速度|
-|shotDispMultiplierFactor|`__aimingInfo[2]`|砲手スキルによる拡散係数|
-|gunShotDispersionFactorsTurretRotation|`__aimingInfo[3]`|砲塔回転時の拡散係数|
-|chassisShotDispersionFactorsMovement|`__aimingInfo[4]`|移動時の拡散係数|
-|chassisShotDispersionFactorsRotation|`__aimingInfo[5]`|車体旋回時の拡散係数|
+|shotDispMultiplierFactor|`__aimingInfo[2]`|拡散乗数|
+|gunShotDispersionFactorsTurretRotation|`__aimingInfo[3]`|砲塔旋回時拡散係数|
+|chassisShotDispersionFactorsMovement|`__aimingInfo[4]`|移動時拡散係数|
+|chassisShotDispersionFactorsRotation|`__aimingInfo[5]`|車体旋回時拡散係数|
 |aimingTime|`__aimingInfo[6]`|照準時間|
 
-### shotDispMultiplierFactor
-
-砲手スキルによる拡散係数です。
-
-$$
-F_d = \frac{0.875}{0.5 + 0.00375\cdot S_{gunner}}
-$$
-
-$F_d$: 拡散係数、
-$S_{gunner}$: 砲手のプライマリスキル
-
-砲手スキル補正 (車長補正、換気扇で 115.5) での理論値は 0.937709310114 になります(ただし内部データは 0.9375146627430 となっていました)。
-
-$$
-\frac{0.875}{0.5 + 0.00375\times 115.5} = 0.937709310114
-$$
-
-### gunShotDispersionFactorsTurretRotation
-
-砲塔回転時の拡散係数です。
 
 
-### chassisShotDispersionFactorsMovement
-
-移動時の拡散係数です。
-
-
-### chassisShotDispersionFactorsRotation
-
-車体旋回時の拡散係数です。
-
-
-### aimingTime
-
-照準時間です。
-拡散円の大きさが $e^{-1} = 0.367879$ 倍になるのに必要な時間を表します。
-カタログ値の照準時間に対して砲手のプライマリスキルの補正が入ります。
-
-$$
-T_{aim}' = T_{aim}\cdot\frac{0.875}{0.5 + 0.00375\cdot S_{gunner}}
-$$
-
-$T_{aim}'$: 照準時間、
-$T_{aim}$: 照準時間 (カタログ値)、
-$S_{gunner}$: 砲手のプライマリスキル
-
-スペック上の IS-7 の照準時間は 3.1秒なので、
-砲手スキル補正 (車長補正、換気扇ありで 115.5) で 2.906898861 になります(ただし内部データは 2.90629529953 となっていました)。
-
-$$
-T'_{aim} = 3.1\times\frac{0.875}{0.5+0.00375\times 115.5} = 2.906898861
-$$
-
-
-
-## gunRotator
+### gunRotator
 
 `gunRotator` は `PlayerAvatar` のプロパティで、
 クラス `VehicleGunRotator.VehicleGunRotator` のインスタンスです。
@@ -239,13 +219,12 @@ $$
 |maxGunRotationSpeed|最大主砲回転速度|
 
 `SERVER_TICK_LENGTH` ごとに
-コールバックとして設定したメソッド `__onTick` で現在の照準拡散が計算されます。
+コールバックとして設定したメソッド `__onTick` を起点に現在の照準拡散が計算されます。
 
 
 ## 要確認項目
 
 + additiveFactor: おそらくスタビライザーの有無による係数
-+ shotDispMulitiplierFactor: 砲手のプライマリスキル?
-+ aimingTime: $T_{aim}$ 砲手のプライマリスキル?、改良型射撃装置 (ガンレイ) ?
++ aimingTime: 改良型射撃装置 (ガンレイ) による効果の有無
 + gunShotDispersionFactorsTurretRotation: 速射 (スナップショット) スキルと関係?
 + chassisShotDispersionFactorsMovement： スムーズな運転 スキルと関係?
