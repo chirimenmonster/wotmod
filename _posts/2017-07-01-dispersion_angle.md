@@ -1,11 +1,9 @@
 ---
-layout: page
+layout: post
 title: 照準の拡散と収束
-sitemap: false
+date: 2017-07-01 07:50 +0900
 mathjax: true
 ---
-**(作成中)**
-
 WoT の照準円は、車体の移動や射撃などによって拡散し、また、時間とともに一定量まで収束します。
 照準円の拡散と収束のルール (計算方法) についてまとめました。
 
@@ -93,23 +91,31 @@ $$
 
 照準時間です。
 拡散円の大きさが $e^{-1} = 0.367879$ 倍になるのに必要な時間を表します。
-カタログ値の照準時間に対して砲手のプライマリスキルの補正が入ります。
+カタログ値の照準時間に対して砲手のプライマリスキル、改良型射撃装置の補正が入ります。
 
 $$
-T_{\rm aim}' = T_{\rm aim}\cdot\frac{0.875}{0.5 + 0.00375\cdot S_{\rm gunner}}
+T_{\rm aim}' = T_{\rm aim}\cdot\frac{0.875}{0.5 + 0.00375\cdot S_{\rm gunner}}\cdot \frac{100}{100+E_{\rm gunlay}}
 $$
 
-* $T_{\rm aim}'$: 照準時間
+* $T_{\rm aim}'$: 照準時間 (砲手プライマリ、改良型射撃装置の効果)
 * $T_{\rm aim}$: 照準時間 (カタログ値)
 * $S_{\rm gunner}$: 砲手のプライマリスキル (%)
+* $E_{\rm gunlay}$: 改良型射撃装置による補正値 (%)
 
-スペック上の IS-7 の照準時間は 3.10 秒なので、
+##### 計算例
+カタログ値での IS-7 の照準時間は 3.10 秒です。
+
 砲手スキル補正 (車長補正、換気扇ありで 115.5) で 2.906898861 になります(ただし内部データは 2.90629529953 となっていました)。
 
 $$
 T'_{\rm aim} = 3.1\times\frac{0.875}{0.5+0.00375\times 115.5} = 2.906898861
 $$
 
+さらに改良型射撃装置による補正 (+10%) がある場合は、 2.642635329 になります(ただし内部データは 2.64472889900 となっていました)。
+
+$$
+T'_{\rm aim} = 3.1\times\frac{0.875}{0.5+0.00375\times 115.5} \times \frac{100}{100+10} = 2.642635329
+$$
 
 
 ### 目標拡散係数 ideal factor
@@ -118,16 +124,16 @@ $$
 車輌の状態はルート内の項で表現されており、完全に静止した状態であれば 1.0 となります。
 
 $$
-f_{\rm ideal} = P \cdot \sqrt{1 + \{(v \cdot F_v)^2 + (\omega_c \cdot F_r)^2 + (\omega_t \cdot F_t)^2 + (F_s)^2 \} \cdot (F_a)^2}
+f_{\rm ideal} = P \cdot \sqrt{1 + \{(v \cdot F_v)^2 + (\omega_c \cdot F_r)^2 + (\omega_t \cdot F_t)^2 + (F_s)^2 \} \cdot B^2}
 $$
 
 * $f_{\rm ideal}$: 目標拡散係数 (ideal factor)
 * $P$: 拡散乗数 (砲手プライマリスキルの効果) `shotDispMultiplierFactor`
-* $F_v$: 移動時拡散係数 `chassisShotDispersionFactorsMovement`
+* $F_v$: 移動時拡散係数 (スムーズな運転スキルの効果) `chassisShotDispersionFactorsMovement`
 * $F_r$: 車体旋回時拡散係数 `chassisShotDispersionFactorsRotation`
 * $F_t$: 砲塔旋回時拡散係数 (速射スキルの効果) `gunShotDispersionFactorsTurretRotation`
 * $F_s$: 砲撃時拡散係数 `shotDispersionFactors`
-* $F_a$: 拡散低減係数 (スタビライザーの効果) `additiveFactor`
+* $B$: 拡散低減係数 (スタビライザーの効果) `additiveFactor`
 * $v$: 移動速度 `vehicleSpeed` (m/s)
 * $\omega_c$: 車体旋回速度 `vehicleRSpeed` (rad/s)
 * $\omega_t$: 砲塔旋回速度 `turretRotationSpeed` (rad/s)
@@ -144,6 +150,8 @@ $$
 * $P$: 拡散乗数
 * $S_{\rm gunner}$: 砲手のプライマリスキル (%)
 
+##### 計算例
+
 砲手スキル補正 (車長補正、換気扇で 115.5) での理論値は 0.937709310114 になります(ただし内部データは 0.9375146627430 となっていました)。
 
 $$
@@ -154,15 +162,17 @@ $$
 #### 移動時拡散係数 chassisShotDispersionFactorsMovement
 
 移動時の拡散係数です。
+操縦手のスムーズな運転スキルの効果を受けます。
 
 カタログ値 (item_defs) との関係は以下のようになります。
+(スムーズな運転スキルの効果の算定式は不明なので下式には含めていません)
 
 $$
-F_v = _cF_v \times 3600 / 1000
+F_v = F_{cv} \times 3600 / 1000
 $$
 
 * $F_v$: 移動時拡散係数 (m/s に対する値)
-* $_cF_v$: 移動時拡散係数のカタログ値 (km/h に対する値)
+* $F_{cv}$: 移動時拡散係数のカタログ値 (km/h に対する値)
 
 
 #### 車体旋回時拡散係数 chassisShotDispersionFactorsRotation
@@ -172,30 +182,33 @@ $$
 カタログ値 (item_defs) との関係は以下のようになります。
 
 $$
-F_r = _cF_r \cdot \frac{180}{\pi}
+F_r = F_{cr} \cdot \frac{180}{\pi}
 $$
 
 * $F_r$: 車体旋回時拡散係数 (rad に対する値)
-* $_cF_r$: 車体旋回時拡散係数のカタログ値 (deg に対する値)
+* $F_{cr}$: 車体旋回時拡散係数のカタログ値 (deg に対する値)
 
 
 #### 砲塔旋回時拡散係数 gunShotDispersionFactorsTurretRotation
 
-砲塔旋回時の拡散係数です。砲手の速射スキルの影響を受けます。
+砲塔旋回時の拡散係数です。
+砲手の速射スキルの効果を受けます。
 
 カタログ値 (item_def) との関係は以下のようになります。
 
 $$
-F_t = _cF_t \cdot \frac{180}{\pi} \cdot(1 - 0.075 \cdot \frac{S_{\rm snapshot}}{100})
+F_t = F_{ct} \cdot \frac{180}{\pi} \cdot(1 - 0.075 \cdot \frac{S_{\rm snapshot}}{100})
 $$
 
 * $F_t$: 砲塔旋回時拡散係数 (rad に対する値、スキル補正後)
-* $_cF_t$: 砲塔旋回時拡散係数のカタログ値 (deg に対する値)
+* $F_{ct}$: 砲塔旋回時拡散係数のカタログ値 (deg に対する値)
 * $S_{\rm snapshot}$: 速射スキルの値 (%)
 
-IS-7, 速射100%, 換気扇 の場合の砲塔旋回時拡散係数は、
+##### 計算例
+
+IS-7, 速射100%, 換気扇 の場合 (速射100%が車長のスキル補正、換気扇の効果を受けて115.5%となります) の砲塔旋回時拡散係数は、
 カタログ値が 0.08 なので以下のように計算されます
-(速射100%が車長のスキル補正、換気扇の効果を受けて115.5%となります)。
+(ただし内部データでは 4.18660259247 でした)。
 
 $$
 0.08 \times 180 / \pi \times (1 - 0.075 \times 1.155) = 4.1866026090209
@@ -265,8 +278,3 @@ $$
 `SERVER_TICK_LENGTH` ごとに
 コールバックとして設定したメソッド `__onTick` を起点に現在の照準拡散が計算されます。
 
-
-## 要確認項目
-
-+ aimingTime: 改良型射撃装置 (ガンレイ) による効果の有無
-+ chassisShotDispersionFactorsMovement： スムーズな運転 スキルと関係?
