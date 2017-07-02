@@ -28,6 +28,8 @@ author: chirimen
 repository: 'chirimenmonster/wotmod'
 lang: ja
 
+timezone: UTC
+
 header_pages:
   - about.md
 
