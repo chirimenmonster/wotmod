@@ -2,7 +2,7 @@
 layout: post
 title: 照準の拡散と収束
 date: 2017-07-01 07:50 +0900
-last_modified_at: 2017-07-02 10:40 +0900
+last_modified_at: 2017-07-02 14:40 +0900
 mathjax: true
 ---
 WoT の照準円は、車体の移動や射撃などによって拡散し、また、時間とともに一定量まで収束します。
@@ -168,7 +168,7 @@ $$
 カタログ値 (item_defs) との関係は以下のようになります。
 
 $$
-F_v = F_{cv} \times 3600 / 1000 \cdot(1 - 0.04 \cdot \frac{S_{\rm smoothride}}{100})
+F_v = F_{cv} \cdot \frac{3600}{1000} \cdot(1 - 0.04 \cdot \frac{S_{\rm smoothride}}{100})
 $$
 
 * $F_v$: 移動時拡散係数 (m/s に対する値)
