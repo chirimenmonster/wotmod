@@ -2,7 +2,7 @@
 layout: post
 title: 照準の拡散と収束
 date: 2017-07-01 07:50 +0900
-last_modified_at: 2017-07-08 13:00 +0900
+last_modified_at: 2017-07-22 10:20 +0900
 mathjax: true
 ---
 WoT の照準円は、車体の移動や射撃などによって拡散し、また、時間とともに一定量まで収束します。
@@ -39,6 +39,8 @@ $$
 #### 拡散角度基準値 shotDispersionAngle
 
 拡散角度の基準値です。カタログ値の 100m 時照準円半径に対応します。
+計算は `scripts/common/items/vehicles.py` の
+`_readGun` で行われます。
 
 $$
 D = \tan^{-1}\left(\frac{R_{100}}{100}\right)
@@ -72,6 +74,9 @@ $$
 
 収束が開始するときの初期値は $f_{\rm start}$ で、時間とともに減少します。
 aiming factor の下限値は ideal factor で、その値になると収束は終了します。
+計算は `scripts/client/Avatar.py` の
+クラス `PlayerAvatar` の
+`getOwnVehicleShotDispersionAngle` で行われます。
 
 $$
 f_{\rm aim} = f_{\rm start} \cdot e^{(t_{\rm start} - t_{\rm current}) / T_{\rm aim}'}
@@ -93,7 +98,12 @@ $$
 照準時間です。
 拡散円の大きさが $e^{-1} = 0.367879$ 倍になるのに必要な時間を表します。
 カタログ値の照準時間に対して砲手のプライマリスキル、改良型射撃装置の補正が入ります。
-砲手プライマリスキルの補正は `scripts/common/items/VehicleDescrCrew.py` で行われます。
+照準時間は砲手プライマリスキルの補正を受け、
+補正値は一般のスキル補正計算式によって計算されます。
+スキル補正の計算は `scripts/common/items/VehicleDescrCrew.py` のクラス `VehicleDescrCrew` の
+`_processSkills` で、
+照準時間の計算は `scripts/client/gui/shared/items_parameters/params.py` の
+`getGunAimingTime` で行われます。
 
 $$
 T_{\rm aim}' = T_{\rm aim}\cdot\frac{1}{0.57 + 0.43\cdot S_{\rm gunner}/100}\cdot E_{\rm gunlay}
@@ -105,11 +115,13 @@ $$
 * $E_{\rm gunlay}$: 改良型射撃装置による補正係数
 
 改良型射撃装置による補正係数は次の表のようになります。
+補正値の定義は `scripts/item_defs/vehicles/common/optional_devices.xml` の
+`enhancedAimDrives` と `deluxEnhancedAimDrives` で行われています。
 
-|:--|:--|
-|なし| 1.0 |
-|改良型射撃装置| 0.91 (≒ 100/(100+10))|
-|耐摩耗射撃装置| 0.89 (≒ 100/(100+12.5))|
+|:--|:--|:--|
+|なし| 1.0 | |
+|改良型射撃装置| 0.91 (≒ 100/(100+10))|enhancedAimDrives|
+|耐摩耗射撃装置| 0.89 (≒ 100/(100+12.5))|deluxEnhancedAimDrives|
 
 ##### 計算例
 
@@ -132,6 +144,8 @@ $$
 
 車輌の移動などを考慮した、最も収束した場合の照準拡散係数です。
 車輌の状態はルート内の項で表現されており、完全に静止した状態であれば 1.0 となります。
+計算は `scripts/client/Avatar.py` の クラス `PlayerAvatar` の
+`getOwnVehicleShotDispersionAngle` で行われています。
 
 $$
 f_{\rm ideal} = P \cdot \sqrt{1 + \{(v \cdot F_v)^2 + (\omega_c \cdot F_r)^2 + (\omega_t \cdot F_t)^2 + (F_s)^2 \} \cdot B^2}
@@ -152,6 +166,9 @@ $$
 #### 拡散乗数 shotDispMultiplierFactor
 
 拡散係数全体にかかる乗数です。砲手のプライマリスキルによる影響を受けます。
+補正値は一般のスキル補正計算式によって計算され、
+`scripts/common/items/VehicleDescrCrew.py` のクラス `VehicleDescrCrew` の
+`_processSkills` で、行われます。
 
 $$
 P = \frac{1}{0.57 + 0.43\cdot S_{\rm gunner}/100}
@@ -180,9 +197,13 @@ $$
 F_v = F_{cv}\cdot\frac{1}{0.27778} \cdot(1 - 0.04 \cdot \frac{S_{\rm smoothride}}{100})
 $$
 
-* $F_v$: 移動時拡散係数 (m/s に対する値, $0.27778 \fallingdotseq 1000/3600$) 
+* $F_v$: 移動時拡散係数 (m/s に対する値, $0.27778 \fallingdotseq 1000/3600$)
 * $F_{cv}$: 移動時拡散係数のカタログ値 (km/h に対する値)
 * $S_{\rm smoothride}$: スムーズな運転スキルの値 (%)
+
+なお、km/h から m/s への換算値 0.27778 は
+`scripts/common/items/vehicles.py` の `KMH_TO_MS` で定義されています。
+
 
 ##### 計算例
 
