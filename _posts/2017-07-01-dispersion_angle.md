@@ -2,7 +2,7 @@
 layout: post
 title: 照準の拡散と収束
 date: 2017-07-01 07:50 +0900
-last_modified_at: 2017-07-22 10:20 +0900
+last_modified_at: 2017-07-22 12:30 +0900
 mathjax: true
 ---
 WoT の照準円は、車体の移動や射撃などによって拡散し、また、時間とともに一定量まで収束します。
@@ -204,6 +204,10 @@ $$
 なお、km/h から m/s への換算値 0.27778 は
 `scripts/common/items/vehicles.py` の `KMH_TO_MS` で定義されています。
 
+スキルレベルに対する係数 0.04/100 は
+`scripts/item_defs/tankmen/tankmen.xml` の
+`driver_smoothDriving` で `shotDispersionFactorPerLevel`
+を 0.0004 として定義されています。
 
 ##### 計算例
 
@@ -244,6 +248,11 @@ $$
 * $F_t$: 砲塔旋回時拡散係数 (rad に対する値、スキル補正後)
 * $F_{ct}$: 砲塔旋回時拡散係数のカタログ値 (deg に対する値)
 * $S_{\rm snapshot}$: 速射スキルの値 (%)
+
+スキルレベルに対する係数 0.075/100 は
+`scripts/item_defs/tankmen/tankmen.xml` の
+`gunner_smoothTurret` で `shotDispersionFactorPerLevel`
+を 0.00075 として定義されています。
 
 ##### 計算例
 
