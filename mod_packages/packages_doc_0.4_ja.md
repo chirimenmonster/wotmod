@@ -1,7 +1,8 @@
 ---
 layout: post
-title: "World of Tanks: Mod Packages"
+title: "World of Tanks: Mod Packages ver. 0.4"
 date: 2017-05-19 17:00 +0900
+last_modified_at: 2017-08-03 20:55 +0900
 ---
 原文:
 [packages_doc_0.4.pdf](https://koreanrandom.com/forum/index.php?app=core&module=attach&section=attach&attach_id=112949),

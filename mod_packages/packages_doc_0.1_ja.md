@@ -1,8 +1,8 @@
 ---
 layout: post
-title: "World of Tanks: Mod Packages"
+title: "World of Tanks: Mod Packages ver. 0.1"
 date: 2017-05-19 17:00 +0900
-last_modified_at: 2017-05-23 22:00 +0900
+last_modified_at: 2017-08-03 20:50 +0900
 ---
 この文書は古いバージョンの仕様書を元にしています。
 最新の仕様は [公式ドキュメントの翻訳](./#公式ドキュメントの翻訳) を参照してください。
