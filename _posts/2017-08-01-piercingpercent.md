@@ -3,7 +3,7 @@ layout: post
 title: WoT 装甲貫通インジケータにおける装甲貫通率
 mathjax: true
 date: 2017-08-01 22:10 +0900
-last_modified_at: 2017-08-05 08:20 +0900
+last_modified_at: 2017-08-09 21:20 +0900
 ---
 WoT の装甲貫通インジケータで使用されている装甲貫通率の算定方法です。
 0.9.19.1 で改定されました。
@@ -40,6 +40,9 @@ WoT の装甲貫通インジケータは 0.9.19.1 の改定で、
 貫通力のばらつきに対する貫通率が計算されます。
 貫通インジケータの色はこの貫通率に対して設定されます。
 
+これらの処理は
+`scripts/client/AvatarInputHandler/gun_marker_ctrl.py` の
+クラス `_CrosshairShotResults` の `getShotResult` で行われます。
 
 ## 貫通力のばらつきと判定基準
 
@@ -57,6 +60,11 @@ WoT の装甲貫通インジケータは 0.9.19.1 の改定で、
 
 $R$: 貫通率 (%) (100% を下回ると貫通)
 
+貫通の判定基準値の計算は
+`scripts/client/AvatarInputHandler/gun_marker_ctrl.py` の
+クラス `_CrosshairShotResults` の `_computePiercingPowerRandomization` で、
+判定は同クラスの　`getShotResult` で行われます。
+
 ### 貫通率 $R$
 
 貫通率 $R$ は下式で計算されます。
@@ -72,6 +80,10 @@ $$
 * $t_e$: 有効装甲厚 (mm)
 * $P_e$: 貫通力 (mm)
 * $P_d$: 距離減衰を考慮した弾着時貫通力 (mm)
+
+貫通率の計算は
+`scripts/client/AvatarInputHandler/gun_marker_ctrl.py` の
+クラス `_CrosshairShotResults` の `getShotResult` で行われます。
 
 
 ### 距離減衰を考慮した弾着時貫通力 $P_d$
@@ -106,6 +118,10 @@ $$
 * $P_{500}$: 距離 500m の貫通力カタログ値 (mm)
 * $L_{\text{max}}$: 最大到達距離 (内部設定値) (m)
 * $L$: 着弾距離 (m)
+
+弾着時貫通力の計算は
+`scripts/client/AvatarInputHandler/gun_marker_ctrl.py` の
+クラス `_CrosshairShotResults` の `_computePiercingPowerAtDist` で行われます。
 
 
 ## 跳弾判定
