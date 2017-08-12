@@ -3,7 +3,7 @@ layout: post
 title: WoT 装甲貫通インジケータにおける装甲貫通率
 mathjax: true
 date: 2017-08-01 22:10 +0900
-last_modified_at: 2017-08-09 21:20 +0900
+last_modified_at: 2017-08-12 17:45 +0900
 ---
 WoT の装甲貫通インジケータで使用されている装甲貫通率の算定方法です。
 0.9.19.1 で改定されました。
@@ -64,6 +64,28 @@ $R$: 貫通率 (%) (100% を下回ると貫通)
 `scripts/client/AvatarInputHandler/gun_marker_ctrl.py` の
 クラス `_CrosshairShotResults` の `_computePiercingPowerRandomization` で、
 判定は同クラスの　`getShotResult` で行われます。
+
+
+### 貫通判定基準の解釈
+
+前述したように砲弾の貫通力は ±25% のばらつきが与えられます。
+貫通力のばらつき分布は公式には発表されていませんが
+[FTR の古い (2013年) 記事](http://ftr-wot.blogspot.jp/2013/03/1832013.html)
+によれば照準のばらつきと異なり完全な乱数だそうです。
+
+それを考慮して上記の貫通率の判定を整理すると
+$R=87.5$ で貫通するケースには、貫通力のばらつきのうち 75% が含まれ、
+$R=112.5$ で貫通しないケースには、貫通力のばらつきの 75% が含まれることになります。
+言い換えると
+$R \le 87.5$ は貫通可能性 75% 以上、
+$R \ge 112.5$ は貫通可能性 25% 以下ということになります。
+
+|貫通率 $R$|評価|貫通可能性|default|color blind|
+|:---|:---|:---|:---|:---|
+|$R \le 87.5$|GREAT_PIERCED|75%以上|green|green|
+|$87.5 < R < 112.5$|LITTLE_PIERCED|25～75%|orange|yellow|
+|$R \ge 112.5$ または跳弾|NOT_PIERCED|25%以下|red|purple|
+
 
 ### 貫通率 $R$
 
