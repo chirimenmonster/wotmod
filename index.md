@@ -15,7 +15,7 @@ World of Tanks の mod 開発に関する情報のまとめです。
 + ActionScript3 (Flash)
 + [フォント](docs/wot_fonts.html)
 + 国際化メッセージ (gettext)
-+ サウンド
++ [サウンド](docs/sound.html)
 + スキン
 
 # Works
