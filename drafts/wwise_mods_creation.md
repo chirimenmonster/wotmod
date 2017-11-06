@@ -15,8 +15,8 @@ One of its main advantages is that you’ll be allowed to replace any specific s
 without the necessity to replace the whole container from now on.
 
 version 0.9.17.1 以降を対象としたサウンド mod の作成方法です。
-シンプルかつ短時間で作成できるようにしました。
-主な特長は、現在あるコンテナ全体を入れ替えずに、特定のサウンドファイルを置き換えることが可能であるということです。
+極力シンプルかつ短時間で作成できるようにしました。
+主な特長は、現在あるコンテナ全体を入れ替えずに、特定のサウンドファイルを置き換えることが可能になっている点です。
 
 
 Due to the fact that all works are handled in Wwise environment,
@@ -32,7 +32,7 @@ to pass relevant quick tutorial.
 
 1. Download and install Wwise [https://www.audiokinetic.com/download/](https://www.audiokinetic.com/download/),
 version 2017.1.1 (note - this specific version is mandatory!)  
-WWISE version 2017.1.1 をダウンロードしてインストールします
+Wwise version 2017.1.1 をダウンロードしてインストールします
 [https://www.audiokinetic.com/download/](https://www.audiokinetic.com/download/)。
 (注: このバージョンでなければなりません!)
 
@@ -50,8 +50,9 @@ Click `Open Other` in the opened window, then choose `WoT_sound_mod_version_<gam
 ![Proceed to Audio tab](/resources/image_20171105_03.png)
 
 4. Drag the desired sound files into `Actor-Mixer Hierarchy` -> `Default Work Unit` to replace the old ones  
-対象のサウンドファイルを元のファイルと置き換えるため、
-[**Actor-Mixer Hierarchy**] -> [**Default Work Unit**] にドラッグします。  
+置き換えたいサウンドファイルを
+[**Actor-Mixer Hierarchy**] -> [**Default Work Unit**]
+にドラッグします。  
 ![Drag the desired sound files](/resources/image_20171105_04.png)
 
 5. In the window opened you’ll see the imported files.
@@ -94,10 +95,10 @@ please pay attention to the `Notes` field that contains descriptions of the even
 Add a “play” rule to `wpn_huge_PC_mod event`, then right click on the rule and select `Browse`.
 In the dialog window opened you need to find the required sound file (`wpn_mod`).  
 [**Events**] タブに進みます。
-ここは置き換えたいイベントを見つける必要があります。
-イベントの説明が記載されている [**Notes**] 欄に注意してください。
+ここでは置き換えたいイベントを見つける必要があります。
+イベントの説明が記載されている [**Notes**] 欄に注目してください。
 `wpn_huge_PC_mod event` に “play” ルールを追加し、
-ルール上で右クリックして [**Browse**] を選択します。
+追加したルールのところで右クリックして [**Browse**] を選択します。
 開いたダイアログの中に、必要なサウンドファイル (`wpn_mod`) を見つける必要があります。　　
 ![Proceed to the Events tab](/resources/image_20171105_10.png)
 
