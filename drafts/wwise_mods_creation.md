@@ -5,7 +5,9 @@ excerpt: "Wwise mods creation の翻訳"
 date: 2017-11-05 21:00 +0900
 ---
 原文:
-[Wwise mods creation.pdf](https://koreanrandom.com/forum/applications/core/interface/file/attachment.php?id=118868)
+[Wwise mods creation.pdf](/resources/Wwise mods creation.pdf)  
+関連:
+[Korean Random: wwise project for 9.20.1](https://koreanrandom.com/forum/topic/41341-wwise-project-for-9201/)
 
 # Creation of sound mods for World of Tanks
 
