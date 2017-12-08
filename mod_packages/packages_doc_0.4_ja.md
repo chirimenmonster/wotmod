@@ -3,11 +3,11 @@ layout: post
 title: "World of Tanks: Mod Packages ver. 0.4"
 excerpt: "公式ドキュメント World of Tanks: Mod Packages ver. 0.4 の翻訳"
 date: 2017-05-19 17:00 +0900
-last_modified_at: 2017-08-03 21:10 +0900
+last_modified_at: 2017-12-08 23:30 +0900
 ---
 原文:
-[packages_doc_0.4.pdf](https://koreanrandom.com/forum/index.php?app=core&module=attach&section=attach&attach_id=112949),
-[packages_doc_0.4_en.pdf](https://koreanrandom.com/forum/index.php?app=core&module=attach&section=attach&attach_id=113097)
+[packages_doc_0.4.pdf](/resources/packages_doc_0.4.pdf),
+[packages_doc_0.4_en.pdf](/resources/packages_doc_0.4_en.pdf)
 
 ### version 0.4, 2017-05-04
 
