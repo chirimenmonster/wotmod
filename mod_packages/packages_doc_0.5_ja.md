@@ -2,7 +2,7 @@
 layout: post
 title: "World of Tanks: Mod Packages ver. 0.5"
 excerpt: "公式ドキュメント World of Tanks: Mod Packages ver. 0.5 の翻訳"
-date: 2017-12-09 08:00 +0900
+date: 2017-12-09 08:05 +0900
 ---
 原文:
 [packages_doc_0.5_ru.pdf](https://koreanrandom.com/forum/applications/core/interface/file/attachment.php?id=119661),
@@ -12,7 +12,7 @@ date: 2017-12-09 08:00 +0900
 
 ### World of Tanks 0.9.20.1
 
-|Author||Contact information|
+|著者||連絡先|
 |:---|:---|:---|
 |Anton Bobrov|Wargaming.net||
 |Mikhail Paulyshka|XVM team|mixail@modxvm.com|
