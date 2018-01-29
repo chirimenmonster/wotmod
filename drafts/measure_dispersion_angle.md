@@ -186,13 +186,13 @@ TPS視点でマウスを静止させているので車体旋回と反対方向�
 | stabi+gunlay | 18.23536320 | -0.2610534132 | 0.2617032490 |
 
 
-### パラメータ
+### 拡張モジュールに関連するパラメータ
 
 スタビライザーの効果は additiveFactor に、
 ガンレイの効果は aimingTime に反映されます。
 
 |case|additiveFactor|aimingTime |
-|:--:|--:|--:|
+|:--:|:--:|:--:|
 | normal | 1.0 | 2.205177307 |
 | stabi  | 0.8 | 2.205177307 |
 | gunlay | 1.0 | 2.006711483 |
@@ -205,10 +205,130 @@ aimingTime はカタログ値 2.30 s に砲手スキル 110% 、
 [照準の拡散と収束: 照準時間 aimingTime](/2017/06/30/dispersion_angle.html#照準時間-aimingtime)
 を参照してください。
 
-$$
-\mathrm{aimingTime} = 2.30\times\frac{1}{0.57 + 0.43\times 110/100}\times 1.0 = 2.205177307
-$$
+#### ガンレイなし
 
 $$
-\mathrm{aimingTime} = 2.30\times\frac{1}{0.57 + 0.43\times 110/100}\times 0.91 = 2.006711409
+\mathrm{aimingTime} = 2.30\times\frac{1}{0.57 + 0.43\times (100 + 10)/100}\times 1.0 = 2.205177307
 $$
+
+#### ガンレイあり
+
+$$
+\mathrm{aimingTime} = 2.30\times\frac{1}{0.57 + 0.43\times (100 + 10)/100}\times 0.91 = 2.006711409
+$$
+
+### 拡張モジュールに関連しないその他のパラメータ
+
+目標拡散係数 (idealFactor) の計算に使われるパラメータです。
+multFactor には砲手のプライマリスキル、
+factorsMovement にはスムーズな運転スキルが、
+factorsTurretRotation には速射スキルの効果が影響します。
+拡張モジュールの影響は受けないので全て同一の値です。
+
+|case|multFactor|factorsMovement|factorsRotation|factorsTurretRotation|
+|:--:|:--:|:--:|:--:|:--:|
+| normal | 0.9587727785 | 0.719994247 | 11.45915604 | 5.256887913 |
+| stabi  | 0.9587727785 | 0.719994247 | 11.45915604 | 5.256887913 |
+| gunlay | 0.9587727785 | 0.719994247 | 11.45915604 | 5.256887913 |
+| stabi+gunlay | 0.9587727785 | 0.719994247 | 11.45915604 | 5.256887913 |
+
+#### 拡散乗数 (multFactor)
+
+砲手のプライマリスキル効果が計算されます。
+車長補正で 110% (100+10) として扱われます。
+
+$$
+\mathrm{multFactor} = \frac{1}{0.57 + 0.43\times (100+10)/100} = 0.9587727709
+$$
+
+算定式の詳細は
+[照準の拡散と収束: 拡散乗数 shotDispMultiplierFactor](/2017/06/30/dispersion_angle.html#拡散乗数-shotdispmultiplierfactor)
+を参照してください。
+
+#### 移動時拡散係数 (factorsMovement)
+
+カタログ値 0.20 (km/h)<sup>-1</sup> に対し、
+下式のように m/s 系への単位換算と
+操縦手のスムーズな運転スキル効果が計算されます。
+ここではスムーズな運転スキルがないので 0% として扱われます。
+
+$$
+\mathrm{factorsMovement} = 0.20 \times \frac{1}{0.27778} \times
+\left( 1 - 0.04 \times \frac{0}{100} \right) = 0.71999424
+$$
+
+算定式の詳細は
+[照準の拡散と収束: 移動時拡散係数 chassisShotDispersionFactorsMovement](/2017/06/30/dispersion_angle.html#移動時拡散係数-chassisshotdispersionfactorsmovement)
+を参照してください。
+
+#### 車体旋回時拡散係数 (factorsRotation)
+
+カタログ値 0.20 (deg./s)<sup>-1</sup> に対し、
+下式のように rad/s 系への単位換算が行われます。
+
+$$
+\mathrm{factorsRotation} = 0.20 \times \frac{180}{\pi} = 11.4591559
+$$
+
+算定式の詳細は
+[照準の拡散と収束: 車体旋回時拡散係数 chassisShotDispersionFactorsRotation](/2017/06/30/dispersion_angle.html#車体旋回時拡散係数-chassisshotdispersionfactorsrotation)
+を参照してください。
+
+#### 砲塔旋回時拡散係数 (factorsTurretRotation)
+
+カタログ値 0.10 (deg./s)<sup>-1</sup> に対し、
+下式のように rad/s 系への単位換算と
+砲手の速射スキル効果が計算されます。
+車長補正で速射スキルは 110% (100+10) として扱われます。
+
+$$
+\mathrm{factorsRotation} = 0.1 \times \frac{180}{\pi} \times
+\left( 1 - 0.075 \times\frac{100+10}{100} \right)= 5.25688777
+$$
+
+算定式の詳細は
+[照準の拡散と収束: 砲塔旋回時拡散係数 gunShotDispersionFactorsTurretRotation](/2017/06/30/dispersion_angle.html#砲塔旋回時拡散係数-gunshotdispersionfactorsturretrotation)
+を参照してください。
+
+
+### 収束状態
+
+照準の収束状態の比較です。
+
+#### 最大速度時
+
+#### 最大速度+最大旋回時
+
+
+## スタビとガンレイの優位は逆転するか
+
+前述の比較結果を見ると、
+最初の拡散が大きくなり、
+照準時間が長くなるほどスタビとガンレイの優位さは減少していき、
+いつかは逆転するようにみえます。
+では、どの程度拡散が大きくなればガンレイが追いつき、そして逆転するでしょうか。
+
+拡張パーツ無しで照準が収束しきるまでの時間を、
+照準時間のカタログ値 $T_a$ を基準として
+$\alpha T_a$ (s)
+と表します。
+
+スタビの収束時間は $0.8 f_s \cdot e^{-\alpha/s}$、
+ガンレイの収束時間は $f_s \cdot e^{-\alpha/0.91s}$
+と表せるので、
+両者が同じ時間となる条件は下式となります。
+$f_s$ は収束開始時の拡散係数、
+$s$ は砲手スキルによる係数です。
+
+$$
+0.8 f_s \cdot e^{-\alpha/s} = f_s \cdot e^{-\alpha/0.91s}
+$$
+
+これを解くと、約2.2 となります(砲手110%の場合)。
+
+$$
+\alpha = - \frac{s \log 0.8}{1 / 0.91 - 1} \simeq 2.17
+$$
+
+つまり、カタログ値の 2.2倍収束に時間がかかるくらいに拡散する場合だとガンレイが優位ということになります。
+
