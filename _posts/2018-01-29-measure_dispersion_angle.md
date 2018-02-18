@@ -1,7 +1,6 @@
 ---
 layout: post
 title: 砲拡散係数値の取得と検証
-sitemap: false
 mathjax: true
 date: 2018-01-29 22:15 +0900
 last_modified_at: 2018-01-30 19:10 +0900
