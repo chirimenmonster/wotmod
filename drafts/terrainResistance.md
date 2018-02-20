@@ -6,31 +6,85 @@ sitemap: false
 ---
 
 ## 出力 (power)
+
 出力 (power) はエンジンのパラメータとして定義されています。
 クライアント内部の定義や tankopedia などで確認できる出力の単位は hp (horse power: 馬力) です。
 
 物理量としては仕事率に相当し、
 単位時間内のエネルギーを表します。
 
-馬力には仏馬力と英馬力の2種があって、
-WoT でどちらの馬力を使用しているのかは確認できていないのですが、
-tankopedia での単位表記が "hp" となっているので、
-英馬力が単位として使用されているものと仮定して話を進めることにします。
-ちなみに wikipedia によれば
-1 仏馬力 (PS) = 約 0.98632 英馬力 (HP)
-です。
+馬力には仏馬力と英馬力の2種がありますが、
+後述のように WoT では仏馬力が採用されています。
+
+馬力からワットへの換算は common/items/vehicles.py で、
+ワットから馬力への換算は client/gui/shared/items_parameters/param.py などで確認できます。
+
+```python
+    item.power = _xml.readPositiveFloat(xmlCtx, section, 'power') * component_constants.HP_TO_WATTS
+```
+
+```python
+    @property
+    def enginePower(self):
+        return int(round(self._itemDescr.power / component_constants.HP_TO_WATTS, 0))
+```
+
+馬力からワットへの換算係数 `HP_TO_WATTS` は common/items/components/component_conststnt.py で定義されており、
+WoT では仏馬力が採用されていることが確認できます。
+
+```python
+HP_TO_WATTS = 735.5
+```
+
+車輌のマスクデータとして smplEnginePower というパラメータも定義されているのですが、
+詳細は不明です。
+client/gui/shared/items_parameters/param.py での使用箇所を見ると
+限界速度 (制限速度ではなく速度の上限値) の計算に用いられているようです。
+
+```python
+    def __getRealSpeedLimit(self):
+        enginePower = self.__getEnginePhysics()['smplEnginePower']
+        rollingFriction = self.__getChassisPhysics()['grounds']['ground']['rollingFriction']
+        return enginePower / self.vehicleWeight.current * METERS_PER_SECOND_TO_KILOMETERS_PER_HOUR * self.__factors['engine/power'] / 12.25 / rollingFriction
+```
+
+この中の 12.25 という値もよくわかりませんね。
+本来であれば、ここには重力加速度として 9.81 が来るはずです。
+
+この限界速度の値は relativeMobility の計算の一部に使用されます。
+
+
+## 転がり摩擦 (rolling friction)
+
+転がり摩擦 (rolling friction) は履帯 (chassis) のパラメータとして定義されています。
+対象物には ground, sand, wood, snow, stone, metal がありますが、
+現在 (0.9.22.0.1) では対象物によらず同じ値が設定されているようです。
+
+値は履帯によって異なりますが、おおむね 0.1 前後です。
 
 
 ## 重量 (weight)
+
 重量 (weight) は車体を始めとする各モジュールの重量の合計です。
 
+
 ## 接地抵抗 (terrain resistance)
+
 接地抵抗 (terrain resistance) は履帯のパラーメータとして定義されています。
 地形の種別、hard, medium, soft の3種類それぞれに対して
 接地抵抗の値が定義されています。
 これらの値はエンジンの出力に対する低減係数として扱われます。
 
+接地抵抗のうち、
+medium と soft については、
+オフロードスキル、
+グロウサーによって軽減されます。
+common/items/VehicleDescrCrew.py,
+common/items/artefacts.py
+
+
 ## 摩擦係数 (specific friction)
+
 摩擦係数 (specific friction) は共通パラメータです。
 クライアント内部では定数 `DEFAULT_SPECIFIC_FRICTION` として
 次のように定義されています。
@@ -41,6 +95,7 @@ DEFAULT_SPECIFIC_FRICTION = 0.6867000000000001
 
 これは $0.6867 = 0.07 \times 9.81$ で、
 摩擦係数が 0.07 であることを表しています。
+
 
 ## 出力重量比 (power weight ratio)
 重量に対する出力の比です。
@@ -101,19 +156,32 @@ $$
 \frac{P}{m} = \mu'g \cdot v
 $$
 
-AMX 40 のエンジン最大出力は 190 hp,
-地形 hard の接地抵抗が 1.4,
+AMX 40 のエンジン最大出力は 190 hp （smplEnginePower が 200.8834 hp）,
+接地抵抗が (hard, medium, soft) = (1.4, 1.5, 2.5),
 総重量が 21.86 t,
-動摩擦係数と重力加速度の積が 0.6867 なので、
-下式のように最高速度を 24.27 km/h と求めることができます。
+動摩擦係数と重力加速度の積が 0.6867、
+転がり摩擦係数 0.12075、
+下式のように最高速度を 23.94 km/h と求めることができます。
 
 $$
-v = \frac{(190 /1.4) \times 745.7}{21860 \times 0.6867} \times \frac{3600}{1000} = 24.27
+v = \frac{(190 /1.4) \times 735.5}{21860 \times 0.6867}
+\times \frac{3600}{1000} = 23.94 ~\mathrm{(km/h)}
 $$
 
-ここでは
-1 英馬力 (hp) = 745.7 ワット (W)
-として計算しました　(正確には 745.69987158227022 ワット)。
+$$
+v = \frac{(200.8834 / 1.4) \times 735.5}{21860 \times 0.12075 \times 9.81}
+\times \frac{3600}{1000} = 14.67 ~\mathrm{(km/h)}
+$$
+
+$$
+v = \frac{(200.8834 / 1.5) \times 735.5}{21860 \times 0.12075 \times 9.81}
+\times \frac{3600}{1000} = 13.69 ~\mathrm{(km/h)}
+$$
+
+$$
+v = \frac{(200.8834 / 2.5) \times 735.5}{21860 \times 0.12075 \times 9.81}
+\times \frac{3600}{1000} = 8.22 ~\mathrm{(km/h)}
+$$
 
 
 ## トルクと加速度
@@ -151,13 +219,13 @@ AMX40 のエンジン回転数 2000 - 2500 rpm のとき、
 2000 rpm のとき
 
 $$
-T = 190 \times 745.7 \times \frac{60}{2 \times 3.14 \times 2000} = 676.8
+T = 190 \times 735.5 \times \frac{60}{2 \times 3.14 \times 2000} = 667.6 ~\mathrm{(Nm)}
 $$
 
 2500 rpm のとき
 
 $$
-T = 190 \times 745.7 \times \frac{60}{2 \times 3.14 \times 2500} = 541.5
+T = 190 \times 735.5 \times \frac{60}{2 \times 3.14 \times 2500} = 534.1 ~\mathrm{(Nm)}
 $$
 
 
