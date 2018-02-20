@@ -54,14 +54,6 @@ client/gui/shared/items_parameters/param.py での使用箇所を見ると
 この限界速度の値は relativeMobility の計算の一部に使用されます。
 
 
-## 転がり摩擦 (rolling friction)
-
-転がり摩擦 (rolling friction) は履帯 (chassis) のパラメータとして定義されています。
-対象物には ground, sand, wood, snow, stone, metal がありますが、
-現在 (0.9.22.0.1) では対象物によらず同じ値が設定されているようです。
-
-値は履帯によって異なりますが、おおむね 0.1 前後です。
-
 
 ## 重量 (weight)
 
@@ -95,6 +87,15 @@ DEFAULT_SPECIFIC_FRICTION = 0.6867000000000001
 
 これは $0.6867 = 0.07 \times 9.81$ で、
 摩擦係数が 0.07 であることを表しています。
+
+
+## 転がり摩擦 (rolling friction)
+
+転がり摩擦 (rolling friction) は履帯 (chassis) のパラメータとして定義されています。
+対象物には ground, sand, wood, snow, stone, metal がありますが、
+現在 (0.9.22.0.1) では対象物によらず同じ値が設定されているようです。
+
+値は履帯によって異なりますが、おおむね 0.1 前後です。
 
 
 ## 出力重量比 (power weight ratio)
@@ -227,6 +228,33 @@ $$
 $$
 T = 190 \times 735.5 \times \frac{60}{2 \times 3.14 \times 2500} = 534.1 ~\mathrm{(Nm)}
 $$
+
+
+## 現在値の取得
+
+### 車輌 (class Vehicle.Vehicle)
+
+```python
+import BigWorld
+vehicle = BigWorld.player().vehicle
+```
+
+### 速度 (m/s)
+
+speedInfo は4次元のベクトル量。
+速度、ロール、ピッチ、ヨー （ロール、ピッチ、ヨーの順序は未確認）
+
+```python
+vehicle.speedInfo[0]
+```
+
+### エンジン回転数 (rpm)
+
+表示用の値なので物理モデルとの対応関係は不明
+
+```python
+vehicle.appearance.rpm
+```
 
 
 ## scripts/common/items/vehicles.py
