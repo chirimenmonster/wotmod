@@ -254,6 +254,8 @@ vehicle.speedInfo[0]
 
 ```python
 vehicle.appearance.rpm
+vehicle.appearance._CompoundAppearance__detailedEngineState.rpm
+vehicle.appearance._CompoundAppearance__detailedEngineState.relativeRPM
 ```
 
 
