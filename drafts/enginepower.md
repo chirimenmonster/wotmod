@@ -64,17 +64,16 @@ KG_TO_NEWTON = 9.81
 
 ## 接地抵抗 (terrain resistance)
 
-接地抵抗 (terrain resistance) は履帯のパラーメータとして定義されています。
-地形の種別、hard, medium, soft の3種類それぞれに対して
-接地抵抗の値が定義されています。
+接地抵抗 (terrain resistance) は履帯のパラメータで、
+地形の種別、hard, medium, soft の3種類それぞれに対して定義されています。
 これらの値はエンジンの出力に対する低減係数として扱われます。
 
 接地抵抗のうち、
 medium と soft については、
 オフロードスキル、
 グロウサーによって軽減されます。
-common/items/VehicleDescrCrew.py,
-common/items/artefacts.py
+common/items/VehicleDescrCrew.py と
+common/items/artefacts.py に該当の処理があります。
 
 ```python
         level = level + levelIncrease
