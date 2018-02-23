@@ -3,13 +3,20 @@ layout: page
 title: About
 permalink: /about/
 ---
+このページは
+World of Tanks
+の mod 開発に関連する情報を
+Chirimen
+がまとめたものです (まとまってない)。
+内容についてはできるだけ正確なものとなるよう心がけてはいますが、
+公式情報が得られないときは、
+確かではない情報ソースによったり、
+推測で記述することもあるので、
+結果として不正確になる場合が多々あります。
+参照するときはその旨注意をお願いします。
 
-This is the base Jekyll theme. You can find out more info about customizing your Jekyll theme, as well as basic Jekyll usage documentation at [jekyllrb.com](https://jekyllrb.com/)
+もし、記述内容に誤りを見つけたり、
+新たな情報が得られるなどした場合には、
+Chirimen まで
+連絡くださると助かります。
 
-You can find the source code for the Jekyll new theme at:
-{% include icon-github.html username="jekyll" %} /
-[minima](https://github.com/jekyll/minima)
-
-You can find the source code for Jekyll at
-{% include icon-github.html username="jekyll" %} /
-[jekyll](https://github.com/jekyll/jekyll)
