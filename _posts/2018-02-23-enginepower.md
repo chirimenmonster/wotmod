@@ -1,8 +1,8 @@
 ---
 layout: page
-title: エンジン出力と最大速度
+title: WoT のエンジン出力と最大速度
 mathjax: true
-sitemap: false
+date: 2018-02-23 21:15 +0900
 ---
 WoT の車輌には最大速度の設定がありますが、
 この最大速度とは実は速度のリミッターのことを表しています。
