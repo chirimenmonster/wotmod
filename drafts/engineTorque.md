@@ -10,45 +10,67 @@ sitemap: false
 
 ## トルクと加速度
 
-トルク (Nm) $T$,
-回転速度 (rpm) $N$,
-出力 (W) $P$
+### トルク、回転速度、出力の関係
+
+トルク $T$ (Nm),
+回転速度 $N$ (rpm) ,
+出力 $P$ (W) 
 の関係
 
 $$
 P = \frac{2\pi N}{60}\cdot T
 $$
 
+エンジン回転数 $N$ (rpm) を
+エンジン回転数上限値 $N_\max$ (rpm) と
+基準化回転数 $N_r$ の積で表す。
+$N_r$ は無次元量。
+
 $$
 N = N_r\cdot N_\max
 $$
+
+エンジン出力 $P$ (W) を
+定格出力 $P_\max$ (W) と
+基準化出力 $P_r$ の積で表す。
+$P_r$ は無次元量。
 
 $$
 P = P_r\cdot P_\max
 $$
 
+$P_r$, $P_\max$, $N_r$, $N_\max$, $T$ の関係。
+$P_\max$, $N_\max$ は定数。 
+
 $$
-P_r \cdot P_\max = \frac{2\pi}{60} N_r \cdot N_\max \cdot T
+P_r \cdot P_\max = \frac{2\pi}{60}\cdot N_r \cdot N_\max \cdot T
 $$
 
 $$
 P_r = \frac{2\pi}{60}\cdot\frac{N_\max}{P_\max}\cdot N_r \cdot T
 $$
 
+トルク $T$ の算定式。
+$P_r$ はエンジン性能曲線から得られる $N_r$ の関数。
+
 $$
 T = \frac{P_r(N_r)}{N_r}\cdot\frac{P_\max}{N_\max}\cdot\frac{60}{2\pi}
 $$
 
-車輌速度 (m/s) $v$,
-駆動輪半径 (m) $r$,
-回転速度 (rpm) $N$,
+### 速度とエンジン回転数、変速比
+
+車輌速度 $v$ (m/s) ,
+駆動輪半径 $r$ (m),
+回転速度 $N$ (rpm),
 変速比 transmission ratio $R_t$
 減速比 drive ratio $R_d$
-の関係
+の関係。
 
 $$
 v = \frac{2\pi r \cdot N / 60}{R_t \cdot R_d}
 $$
+
+エンジン回転数が上限値 $N_\max$ に達したときに得られる速度を $v_\max$ とする。
 
 $$
 v_\max = N_\max\cdot\frac{r}{R_t\cdot R_d}\cdot\frac{2\pi}{60}
@@ -58,32 +80,52 @@ $$
 \frac{N_\max}{v_\max} = \frac{R_t\cdot R_d}{r}\cdot\frac{60}{2\pi}
 $$
 
+ギア比 $R_t\cdot R_d$ が一定と仮定すると、
+$N/v$ は定数となる。
+
 $$
 N = v \cdot\frac{N_\max}{v_\max}
 $$
+
+速度 $v$ を $N_\max$ 時の速度 $v_\max$ と係数 $v_r$ の積で表すと、
+$N_r = v_r$ となる。
 
 $$
 N_r = \frac{v}{v_\max} = v_r
 $$
 
+### 加速度、摩擦とトルクの関係
 
-車輌質量 (kg) $m$,
-加速度 (m/s<sup><small>2</small></sup>) $a$
+力 $F$ (N), 
+車輌質量 $m$ (kg),
+加速度 $a$ (m/s<sup><small>2</small></sup>)
+の関係
 
 $$
-m (a + \mu'g) = F = \frac{T \cdot R_t \cdot R_d}{r}
+F = m(a + \mu'g)
+$$
+
+力 $F$ (N), トルク $T$ (Nm), 駆動輪半径 $r$ (m), ギア比 $R_t\cdot R_d$
+の関係
+
+$$
+F = \frac{T \cdot R_t \cdot R_d}{r}
 $$
 
 $$
-\begin{aligned}
-F &= \frac{P_r(N_r)}{N_r}\cdot\frac{P_\max}{N_\max}\cdot\frac{60}{2\pi}
-\cdot\frac{N_\max}{v_\max}\cdot\frac{2\pi}{60} \\
-&=\frac{P_r(v_r)}{v_r}\cdot\frac{P_\max}{v_\max}
-\end{aligned}
+F = \frac{P_r(N_r)}{N_r}\cdot\frac{P_\max}{N_\max}\cdot\frac{60}{2\pi}
+\cdot\frac{N_\max}{v_\max}\cdot\frac{2\pi}{60}
+=\frac{P_r(v_r)}{v_r}\cdot\frac{P_\max}{v_\max}
 $$
+
+加速度 $a$ は $v_r$ の関数で表せる。
 
 $$
 a = \frac{P_r(v_r)}{v_r}\cdot\frac{P_\max}{v_\max}\cdot\frac{1}{m} - \mu'g
+$$
+
+$$
+P_r(v_r) = v_r \cdot\frac{v_\max}{P_\max} \cdot m(a + \mu'g) 
 $$
 
 a = 0 のとき、
