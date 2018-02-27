@@ -19,7 +19,27 @@ $$
 P = \frac{2\pi N}{60}\cdot T
 $$
 
-車輌速度 (km/h) $v$,
+$$
+N = N_r\cdot N_\max
+$$
+
+$$
+P = P_r\cdot P_\max
+$$
+
+$$
+P_r \cdot P_\max = \frac{2\pi}{60} N_r \cdot N_\max \cdot T
+$$
+
+$$
+P_r = \frac{2\pi}{60}\cdot\frac{N_\max}{P_\max}\cdot N_r \cdot T
+$$
+
+$$
+T = \frac{P_r(N_r)}{N_r}\cdot\frac{P_\max}{N_\max}\cdot\frac{60}{2\pi}
+$$
+
+車輌速度 (m/s) $v$,
 駆動輪半径 (m) $r$,
 回転速度 (rpm) $N$,
 変速比 transmission ratio $R_t$
@@ -27,14 +47,49 @@ $$
 の関係
 
 $$
-v = \frac{2\pi r \cdot N / 60}{R_t \cdot R_d} \cdot \frac{3600}{1000}
+v = \frac{2\pi r \cdot N / 60}{R_t \cdot R_d}
 $$
+
+$$
+v_\max = N_\max\cdot\frac{r}{R_t\cdot R_d}\cdot\frac{2\pi}{60}
+$$
+
+$$
+\frac{N_\max}{v_\max} = \frac{R_t\cdot R_d}{r}\cdot\frac{60}{2\pi}
+$$
+
+$$
+N = v \cdot\frac{N_\max}{v_\max}
+$$
+
+$$
+N_r = \frac{v}{v_\max} = v_r
+$$
+
 
 車輌質量 (kg) $m$,
 加速度 (m/s<sup><small>2</small></sup>) $a$
 
 $$
 m (a + \mu'g) = F = \frac{T \cdot R_t \cdot R_d}{r}
+$$
+
+$$
+\begin{aligned}
+F &= \frac{P_r(N_r)}{N_r}\cdot\frac{P_\max}{N_\max}\cdot\frac{60}{2\pi}
+\cdot\frac{N_\max}{v_\max}\cdot\frac{2\pi}{60} \\
+&=\frac{P_r(v_r)}{v_r}\cdot\frac{P_\max}{v_\max}
+\end{aligned}
+$$
+
+$$
+a = \frac{P_r(v_r)}{v_r}\cdot\frac{P_\max}{v_\max}\cdot\frac{1}{m} - \mu'g
+$$
+
+a = 0 のとき、
+
+$$
+v = v_r\cdot v_\max = P_r(v_r)\cdot P_\max\cdot\frac{1}{m\cdot\mu'g}
 $$
 
 
