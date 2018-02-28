@@ -61,37 +61,39 @@ $$
 
 車輌速度 $v$ (m/s) ,
 駆動輪半径 $r$ (m),
-回転速度 $N$ (rpm),
+回転数 $N$ (rpm),
 変速比 transmission ratio $R_t$
 減速比 drive ratio $R_d$
 の関係。
+ただし、エンジン回転数 $N$ に対し、
+一定の損失 $N_\min$ (rpm) が生じているものとする。
 
 $$
-v = \frac{2\pi r \cdot N / 60}{R_t \cdot R_d}
+v = \frac{2\pi r \cdot (N - N_\min) / 60}{R_t \cdot R_d}
 $$
 
 エンジン回転数が上限値 $N_\max$ に達したときに得られる速度を $v_\max$ とする。
 
 $$
-v_\max = N_\max\cdot\frac{r}{R_t\cdot R_d}\cdot\frac{2\pi}{60}
+v_\max = (N_\max - N_\min)\cdot\frac{r}{R_t\cdot R_d}\cdot\frac{2\pi}{60}
 $$
 
 $$
-\frac{N_\max}{v_\max} = \frac{R_t\cdot R_d}{r}\cdot\frac{60}{2\pi}
+\frac{N_\max - N_\min}{v_\max} = \frac{R_t\cdot R_d}{r}\cdot\frac{60}{2\pi}
 $$
 
 ギア比 $R_t\cdot R_d$ が一定と仮定すると、
-$N/v$ は定数となる。
 
 $$
-N = v \cdot\frac{N_\max}{v_\max}
+N = v \cdot\frac{N_\max - N_\min}{v_\max} + N_\min
 $$
 
 速度 $v$ を $N_\max$ 時の速度 $v_\max$ と係数 $v_r$ の積で表すと、
 $N_r = v_r$ となる。
 
 $$
-N_r = \frac{v}{v_\max} = v_r
+N_r = \frac{v}{v_\max}\cdot \left(1-\frac{N_\min}{N_\max}\right) + \frac{N_\min}{N_\max}
+= v_r \cdot (1-N_{r\min}) + N_{r\min}
 $$
 
 ### 加速度、摩擦とトルクの関係
@@ -99,7 +101,7 @@ $$
 力 $F$ (N), 
 車輌質量 $m$ (kg),
 加速度 $a$ (m/s<sup><small>2</small></sup>)
-の関係
+の関係 (平地の場合)
 
 $$
 F = m(a + \mu'g)
@@ -114,24 +116,28 @@ $$
 
 $$
 F = \frac{P_r(N_r)}{N_r}\cdot\frac{P_\max}{N_\max}\cdot\frac{60}{2\pi}
-\cdot\frac{N_\max}{v_\max}\cdot\frac{2\pi}{60}
-=\frac{P_r(v_r)}{v_r}\cdot\frac{P_\max}{v_\max}
+\cdot\frac{N_\max - N_\min}{v_\max}\cdot\frac{2\pi}{60}
+=\frac{P_r(N_r)}{N_r}\cdot \frac{P_\max \cdot(1-N_{r\min})}{v_\max}
 $$
 
 加速度 $a$ は $v_r$ の関数で表せる。
 
 $$
-a = \frac{P_r(v_r)}{v_r}\cdot\frac{P_\max}{v_\max}\cdot\frac{1}{m} - \mu'g
+a = \frac{P_r(N_r)}{N_r}\cdot\frac{P_\max\cdot(1-N_{r\min})}{v_\max}\cdot\frac{1}{m} - \mu'g
 $$
 
 $$
-P_r(v_r) = v_r \cdot\frac{v_\max}{P_\max} \cdot m(a + \mu'g) 
+\begin{aligned}
+P_r(N_r) &= N_r \cdot\frac{v_\max}{P_\max\cdot(1-N_{r\min})} \cdot m(a + \mu'g) \\
+&= \frac{N_r}{1-N_{r\min}}\cdot\frac{v_\max}{P_\max} \cdot m(a + \mu'g) \\
+&= \left(v_r + \frac{N_{r\min}}{1-N_{r\min}}\right)\cdot\frac{v_\max}{P_\max} \cdot m(a + \mu'g)
+\end{aligned}
 $$
 
 a = 0 のとき、
 
 $$
-v = v_r\cdot v_\max = P_r(v_r)\cdot P_\max\cdot\frac{1}{m\cdot\mu'g}
+v = v_r\cdot v_\max = P_r(N_r)\cdot P_\max\cdot\frac{1}{m\cdot\mu'g} - \frac{N_{r\min}}{1-N_{r\min}}\cdot v_\max
 $$
 
 
