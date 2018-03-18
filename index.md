@@ -25,3 +25,5 @@ World of Tanks の mod 開発に関する情報のまとめです。
 ASIAクライアントでログイン情報保存を有効にするmodです
 + [PreferredServer](https://github.com/chirimenmonster/wotmods-preferredserver):
 最後に選択したサーバを記憶するmodです
++ [Replserver](https://github.com/chirimenmonster/wotmods-replserver):
+WoTにREPL(対話型評価環境)を提供するmodです
