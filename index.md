@@ -17,6 +17,7 @@ World of Tanks の mod 開発に関する情報のまとめです。
 + 国際化メッセージ (gettext)
 + [サウンド](docs/sound.html)
 + スキン
++ [WoT scripts](docs/wotscripts.html): WoT のコードの動作と制御に関するメモです
 
 # Works
 + [SpotMessanger](https://github.com/chirimenmonster/wotmods-spotmessanger):
