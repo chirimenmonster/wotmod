@@ -2,6 +2,7 @@
 layout: post
 title: WoT scripts メモ
 date: 2018-04-27 08:00 +0900
+last_modified_at: 2018-04-27 18:30 +0900
 ---
 
 WoT の scripts に関するメモです。
@@ -38,3 +39,20 @@ view には制御のための名称が付けられており、view_alias と呼�
 WoT 内で使用される view_alias は scripts/client/gui/Scaleform/daapi/settings/views.py の
 VIEW_ALIAS で定義されています。
 
+
+## イベントの発火
+
+メソッド fireEvent でイベントを発火させることができる。
+
+scripts/client/gui/Scaleform/framework/entities/EventSystemEntity.py
+```python
+def fireEvent(self, event, scope = EVENT_BUS_SCOPE.DEFAULT):
+```
+
+```python
+from gui.app_loader.loader import g_appLoader
+from gui.Scaleform.daapi.settings.views import VIEW_ALIAS
+from gui.shared import events, EVENT_BUS_SCOPE
+
+g_appLoader.getApp().fireEvent(events.LoadViewEvent(VIEW_ALIAS.LOBBY, None), scope=EVENT_BUS_SCOPE.LOBBY)
+```
