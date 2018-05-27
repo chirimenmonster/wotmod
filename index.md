@@ -18,6 +18,7 @@ World of Tanks の mod 開発に関する情報のまとめです。
 + [サウンド](docs/sound.html)
 + スキン
 + [WoT scripts](docs/wotscripts.html): WoT のコードの動作と制御に関するメモです
++ [WoT Dossier](docs/dossier.html): WoT の Dossier ファイルに関するメモです
 
 # Works
 + [SpotMessanger](https://github.com/chirimenmonster/wotmods-spotmessanger):
