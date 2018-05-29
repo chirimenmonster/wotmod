@@ -2,7 +2,7 @@
 layout: post
 title: WoT Dossier ファイル メモ
 date: 2018-05-27 08:00 +0900
-last_modified_at: 2018-05-29 12:00 +0900
+last_modified_at: 2018-05-29 17:00 +0900
 ---
 
 WoT の戦績データ Dossier ファイルに関するメモです。
@@ -29,6 +29,7 @@ wotasia1-2.login.wargaming.net:20016;Chirimen;PlayerAccount
 ```
 
 ファイル名は scripts/client/account_helpers/DossierCache.py で作成されています。
+ログインサーバ、アカウント名、アカウントクラスを ';' (セミコロン) で連結したものになっています。
 
 ```python
 class DossierCache(object):
@@ -121,32 +122,32 @@ ownerID は32bit長の整数で、itemTypeID の大きさに応じて以下の�
 
 itemTypeID が 15 以下の場合:
 ```
- 31       28          24          20          16          12           8           4           0
+ 0           4           8           12          16          20          24          28       31
 |--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--|
-|           0           |                  itemID(16)                   | nationID  | itemTypeID|
+|itemTypeID | nationID  |                  itemID(16)                   |           0           |
 ```
 
 itemTypeID が 16 以上の場合:
 ```
- 31       28          24          20          16          12           8           4           0
+ 0           4           8           12          16          20          24          28       31
 |--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--|
-|      itemTypeID       |                  itemID(16)                   | nationID  |     0     |
+|     0     | nationID  |                  itemID(16)                   |      itemTypeID       |
 ```
 
 #### itemTypeID
 
-+ 値域 [1, 15] または [16, 255]
++ 値域 [1, 15] (4bit長) または [16, 255] (8bit長)
 + 15 以下と 16以上で ownerID のフォーマットが異なる
 + 名称との対応表は scripts/common/items/\__init__.py の ITEM_TYPE_NAMES から生成される
 + 'vehicle' の場合は 1
 
 #### nationID
-+ 値域 [0, 15]
++ 値域 [0, 15] (4bit長)
 + 名称との対応表は scripts/common/nations.py の NAMES から生成される
 + 'ussr' は 0, 'germany' は 1, 'italy' は 10
 
 #### itemID
-+ 値域 [0, 65535]
++ 値域 [0, 65535]  (16bit長)
 + itemTypeID と nationID の組み合わせに対して固有の値となるように ID が定義されている
 + 例えば itemTypeID=1 (vehicle) かつ nationID=0 (ussr) であれば
 ソ連車輌の ID と解釈される
@@ -162,12 +163,18 @@ itemTypeID * 2^24 + nationID * 16 + itemID * 256 (itemTypsID <= 15 の場合)
 
 dossier データの更新時刻です。
 POSIX タイムスタンプの形式なので、
-Python の　datetime.fromtimestamp で datetime オブジェクトに変換できます。
+Python の datetime.fromtimestamp で datetime オブジェクトに変換できます。
 
 ```python
 from datetime import datetime
 print datetime.fromtimestamp(changeTime)
 ```
+
+
+### dossierCompDescr
+
+パックされたバイナリデータです。
+リトルエンディアンです。
 
 
 
