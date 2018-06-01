@@ -2,7 +2,7 @@
 layout: post
 title: WoT Dossier ファイル メモ
 date: 2018-05-27 08:00 +0900
-last_modified_at: 2018-05-29 17:00 +0900
+last_modified_at: 2018-06-01 22:00 +0900
 ---
 
 WoT の戦績データ Dossier ファイルに関するメモです。
@@ -184,16 +184,53 @@ print datetime.fromtimestamp(changeTime)
 ファイル中には新旧のデータ形式が混在することになります。
 VEHICLE_DOSSIER_VERSION は scripts/common/dossiers2/custom/updaters.py で定義されています。
 
-ブロック数はバージョンによって異なります。
+ブロック数は車輌 dossier のバージョンによって異なります。
+各車輌 dossier のバージョンに対するブロックのリストが
+scripts/common/dossiers2/custom/updaters.py
+の関数
+__updateFromVehicleDossierXX (XX は車輌 dossier のバージョン)
+内の変数 blocksLayout で定義されているので、
+blocksLayout の長さをカウントすることでブロック数を得ることができます。
+
 手元の dossier ファイルで確認したところ、
 バージョン 77 で 19、
 バージョン 94 で 34、
 バージョン 101 では 42
 でした。
 
+ブロックデータには
+StaticDossierBlockDescr,
+DictDossierBlockDescr,
+ListDossierBlockDescr,
+BinarySetDossierBlockDescr
+の4種類があります。
 
 
-## Dossier 関連コード
+#### StaticDossierBlockDescr
 
-WoT 内の Dossier の処理は scripts/common/dossiers2 で行われています。
+あらかじめ決められた順序で固定長のデータをパックしたブロックです。
+格納されるデータはプログラム内で静的に決まっています。
+戦闘数や獲得経験値などが格納されます。
+
+固定長のブロックですが、データが存在しない場合のブロック長は 0 になります。
+
+
+#### DictDossierBlockDescr
+
+キーと値のセットを格納する可変長のブロックです。
+
+
+#### ListDossierBlockDescr
+
+固定長の要素を複数格納可能な可変長のブロックです。
+
+エンブレムや迷彩のデータが格納されます。
+
+
+#### BinarySetDossierBlockDescr
+
+ビットデータを格納するブロックです。
+
+一回のみ取得可能な実績のリストが格納されます。
+
 
