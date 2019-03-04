@@ -29,3 +29,5 @@ ASIAクライアントでログイン情報保存を有効にするmodです
 最後に選択したサーバを記憶するmodです
 + [Replserver](https://github.com/chirimenmonster/wotmods-replserver):
 WoTにREPL(対話型評価環境)を提供するmodです
++ [SryFF](https://github.com/chirimenmonster/wotmods-sryff):
+味方を誤射(FF)したときに謝罪するmodです
