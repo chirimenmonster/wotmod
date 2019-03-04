@@ -31,3 +31,5 @@ ASIAクライアントでログイン情報保存を有効にするmodです
 WoTにREPL(対話型評価環境)を提供するmodです
 + [SryFF](https://github.com/chirimenmonster/wotmods-sryff):
 味方を誤射(FF)したときに謝罪するmodです
++ [fontconfig_ja](https://mtm-gaming.org/wiki/Mod/%E3%83%95%E3%82%A9%E3%83%B3%E3%83%88%E6%8B%A1%E5%A4%A7%E8%A8%AD%E5%AE%9A):
+UIフォントを少し拡大した設定です(日本語クライアント専用)
