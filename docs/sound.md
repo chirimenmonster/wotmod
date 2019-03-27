@@ -2,7 +2,7 @@
 layout: post
 title: サウンド
 date: 2017-10-31 21:30 +0900
-last_modified_at: 2019-03-27 21:45 +0900
+last_modified_at: 2019-03-27 23:05 +0900
 ---
 ## ツール
 + [Wwise](https://www.audiokinetic.com/ja/products/wwise/)
