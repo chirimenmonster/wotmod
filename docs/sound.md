@@ -14,3 +14,4 @@ last_modified_at: 2019-03-27 21:45 +0900
 ## 解説
 + [World of Tanks サウンド mod の作り方](translate/wwise_mods_creation.html)
 + [かなマガ: 【WoT】少し細かなボイスMOD制作メモ](https://ch.nicovideo.jp/kanae/blomaga/ar1703801?nicorepotwitter_upload_blomaga)
++ [WoT0.9.14用ボイスMODの作り方①](https://ch.nicovideo.jp/shinkamkam/blomaga/ar990071)
