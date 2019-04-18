@@ -66,3 +66,55 @@ WoT では枠付きのウインドウは AbstractWindowView というクラス�
 
 AbstractWindowView を import する必要があるので、
 あらかじめ WoT の swc ライブラリを gui.pkg から抽出してライブラリに登録しておきます。
+
+
+```python
+from gui.shared import g_eventBus, events
+from gui.app_loader import g_appLoader
+from gui.app_loader.settings import APP_NAME_SPACE
+from gui.Scaleform.framework import ViewSettings, ViewTypes, ScopeTemplates, g_entitiesFactories
+from gui.Scaleform.framework.entities.View import View, ViewKey
+from gui.Scaleform.framework.managers.loaders import SFViewLoadParams
+
+MY_ALIAS = 'myView'
+MY_SWF_PATH = 'test/MyView.swf'
+
+pyView = None
+
+def init():
+    print 'init'
+    settings = ViewSettings(MY_ALIAS, MyView, MY_SWF_PATH, ViewTypes.WINDOW, None, ScopeTemplates.DEFAULT_SCOPE)
+    g_entitiesFactories.addSettings(settings)
+    g_eventBus.addListener(events.AppLifeCycleEvent.INITIALIZED, onAppInitialized)
+
+def onAppInitialized(event):
+    print 'onAppInitialized'
+    if event.ns != APP_NAME_SPACE.SF_LOBBY:
+        return
+    showWindow()
+
+def showWindow():
+    print 'showWindow'
+    app = g_appLoader.getDefLobbyApp()
+    app.loadView(SFViewLoadParams(MY_ALIAS))
+    global pyView
+    pyView = app.containerManager.getViewByKey(ViewKey(MY_ALIAS))
+
+class MyView(View):
+    def _populate(self):
+        super(MyView, self)._populate()
+        self.flashObject.root.window.title = 'TEST WINDOW'
+        self.flashObject.root.width = 380
+        self.flashObject.root.height = 240
+```
+
+```actionscript
+package
+{
+    import net.wg.infrastructure.base.AbstractWindowView;
+    
+    public class Main extends AbstractWindowView
+    {
+    }
+}
+```
