@@ -1,44 +1,33 @@
 ---
 layout: page
-title: View の作成
+title: View の作成 (1) 枠付きウィンドウの表示
 sitemap: false
 ---
-WoT での GUI の基本要素である View の作成についてのメモです。
+WoT の GUI 基本要素である View の作成についての解説その1です。
+今回は枠付きウィンドウを表示する手順について解説します。
+
+## View とは
+
+WoT で GUI などを構成する要素で、
+Flash コンポーネントを Python スクリプトから制御、
+また、Flash コンポーネントから Pyton スクリプトを制御できるようになっています。
+
+Flash は ActionScript 3 (AS3) で記述されます。
 
 
-### View の作成
+## View の作成手順
 
-View 設定の登録
+実際に簡単な View を作成する手順を見てみましょう。
+WoT の画面に枠付きのウィンドウを表示するだけの View を作成してみます。
 
-```python
-from gui.Scaleform.framework import ViewSettings, ViewTypes, ScopeTemplates, g_entitiesFactories
+作成の大まかな手順は以下のようになります。
 
-MY_ALIAS = 'myView'
-MY_SWF_PATH = 'myView.swf'
++ Flash コンポーネントを作成する
++ View のサブクラスを作成する
++ View を読み込み、操作するコードを記述する
 
-settings = ViewSettings(MY_ALIAS, MyView, MY_SWF_PATH, Viewtypes.WINDOW, None,
-                        ScopeTemplates.DEFAULT_SCOPE)
-g_entitiesFactories.addSettings(settings)
-```
 
-View の読み込みは下記のようになります。
-ここでは getLobbyApp でロビーアプリケーションを取得し、
-ロビーアプリケーションに MY_ALIAS に対応する View を表示しています。
-
-```python
-def showWindow():
-    app = g_appLoader.getLobbyApp()
-    app.loadView(SFViewLoadParams(MY_ALIAS))
-```
-
-```python
-from gui.Scaleform.framework.entities.View import View
-
-class MyView(View):
-    pass
-```
-
-### swf ファイル
+### Flash コンポーネントを作成する
 
 下のコードは枠付きのウィンドウを表示する AS3 のコードです。
 
@@ -47,10 +36,11 @@ package
 {
     import net.wg.infrastructure.base.AbstractWindowView;
     
-    public class Main extends AbstractWindowView
+    public class MyView extends AbstractWindowView
     {
-        public function Main() : void
+        protected function onPopulate() : void
         {
+            super.onPopulate();
             width = 380;
             height = 240;
             window.title = "Test View";
@@ -59,14 +49,129 @@ package
 }
 ```
 
-WoT では枠付きのウインドウは AbstractWindowView というクラスで表現されています。
-枠なし背景なしのウィンドウは AbstractView です。
+ここで示したルートのクラス MyView（名前は任意）は AbstractWindowView のサブクラスとなっています。
+AbstractWindowView は WoT に同梱の SWC ライブラリで定義されているクラスです。
+gui.pkg の中にあるので、抽出したものをライブラリとして登録しておきます。
 
-ここではウィンドウの幅と高さ、ウィンドウのタイトルを設定してます。
+AbstractWindowView は枠付きウィンドウのコンポーネントを定義します。
+同様のクラスに、枠なし背景なしの AbstractView があります。
+AbstractWindowView や AbstractView を継承することで、
+View を使うための基本的な設定が行われます。
 
-AbstractWindowView を import する必要があるので、
-あらかじめ WoT の swc ライブラリを gui.pkg から抽出してライブラリに登録しておきます。
+onPopulate は View が作成されるときに呼び出されるメソッドです。
+ここでウインドウのサイズやタイトルバーに表示する文字列を指定しておきます。
+コンストラクタで同様の設定をしようとした場合、設定のタイミングが早すぎるものがあるようです。
 
+コンパイルには FlashDevelop などが使用できます。
+コンパイルした SWF ファイルを、
+ここでは `MyView.swf` としておきます。
+SWF ファイルの名前は任意です。
+
+
+### View のサブクラスを作成する
+
+Python 側ではクラス View をスーパークラスとして
+クラス MyView を定義しておきます。
+
+定義部分は以下のようになります。
+
+```python
+from gui.Scaleform.framework.entities.View import View
+
+class MyView(View):
+    pass
+```
+
+この段階ではクラス View に対し何の拡張も行っていないので、
+クラスの中身は単に pass とだけしておきます。
+
+
+### View を読み込み、操作するコードを記述する
+
+ここからは、mod の本体部分です。
+
+#### View の定義を登録する
+
+mod の初期化部分で View の定義を設定します。
+
+View の定義はクラス ViewSettings のインスタンスとして表現され、
+引数は、View のエイリアス、View のクラス名、
+SWF ファイルのパス、View のタイプ、イベント、スコープ、その他です。
+
+```python
+from gui.Scaleform.framework import ViewSettings, ViewTypes, ScopeTemplates,
+                                    g_entitiesFactories
+
+MY_ALIAS = 'myView'
+MY_SWF_PATH = 'MyView.swf'
+
+def init():
+    settings = ViewSettings(MY_ALIAS, MyView, MY_SWF_PATH, ViewTypes.WINDOW, None,
+                            ScopeTemplates.DEFAULT_SCOPE)
+    g_entitiesFactories.addSettings(settings)
+```
+
+View のエイリアスは、View を呼び出すときの検索キーに使用されるもので任意の名称が使用できます。
+WoT で使用されている既存の名前や他の mod とは衝突しないようにしてください。
+
+クラス名は前節で定義した View のサブクラス名、
+SWF ファイルは先に定義した SWF ファイル名で gui/flash が起点となります。
+つまり res/gui/flash または相当する仮想フォルダの　MyView.swf が読まれます。
+
+タイプは ViewTypes.WINDOW、イベントは None、スコープは ScopeTemplates.DEFAULT_SCOPE としておきます。
+
+
+#### View を読み込む
+
+View の読み込みの際は、
+クラス AppEntry の loadView メソッドに検索キーを指定します。
+検索キーは View のエイリアスと、個別名のペアになります。
+個別名は同一のエイリアスに対して複数の View インスタンスを作成する場合に使用するもので、
+一つしか作成しない場合には省略できます。
+
+有効な AppEntry のインスタンスには
+LobbyEntry のインスタンスと BattleEntry のインスタンスの2種類があって、
+g_appLoader のメソッド getApp, getDefLobbyApp, getDefBattleApp を使用して取得できます。
+
+下記は getLobbyApp で LobbyEntry のインスタンスを取得し、
+View を読み込む例です。
+
+```python
+from gui.app_loader import g_appLoader
+from gui.Scaleform.framework.managers.loaders import SFViewLoadParams
+
+def showWindow():
+    app = g_appLoader.getDefLobbyApp()
+    app.loadView(SFViewLoadParams(MY_ALIAS))
+```
+
+getDefLobbyApp の実行時にすでに LobbyEntry のインスタンスが作成されていなければならないことに注意してください。
+もし作成済みでなければ None が返されます。
+
+下記のように LobbyEntry が作成されるイベントを捕捉すれば
+LobbyEntry が作成されたあと loadView を実行することができます。
+
+```python
+from gui.shared import g_eventBus, events
+from gui.app_loader.settings import APP_NAME_SPACE
+
+def init():
+    ...
+    g_eventBus.addListener(events.AppLifeCycleEvent.INITIALIZED, onAppInitialized)
+
+def onAppInitialized(event):
+    if event.ns != APP_NAME_SPACE.SF_LOBBY:
+        return
+    showWindow()
+```
+
+### コードの全体
+
+コードをまとめると以下のようになります。
+Python のコードを `mod_test.py` という名称でバイトコンパイルして作成された mod_test.pyc を
+`<WoT_game_folder>/res_mods/<WoT_version>/scripts/client/gui/mods/` に、
+AS3 のコードをコンパイルした `MyView.swf` を
+`<WoT_game_folder>/res_mods/<WoT_version>/gui/flash/test/` に設置します。
 
 ```python
 from gui.shared import g_eventBus, events
@@ -79,33 +184,22 @@ from gui.Scaleform.framework.managers.loaders import SFViewLoadParams
 MY_ALIAS = 'myView'
 MY_SWF_PATH = 'test/MyView.swf'
 
-pyView = None
-
 def init():
-    print 'init'
     settings = ViewSettings(MY_ALIAS, MyView, MY_SWF_PATH, ViewTypes.WINDOW, None, ScopeTemplates.DEFAULT_SCOPE)
     g_entitiesFactories.addSettings(settings)
     g_eventBus.addListener(events.AppLifeCycleEvent.INITIALIZED, onAppInitialized)
 
 def onAppInitialized(event):
-    print 'onAppInitialized'
     if event.ns != APP_NAME_SPACE.SF_LOBBY:
         return
     showWindow()
 
 def showWindow():
-    print 'showWindow'
     app = g_appLoader.getDefLobbyApp()
     app.loadView(SFViewLoadParams(MY_ALIAS))
-    global pyView
-    pyView = app.containerManager.getViewByKey(ViewKey(MY_ALIAS))
 
 class MyView(View):
-    def _populate(self):
-        super(MyView, self)._populate()
-        self.flashObject.root.window.title = 'TEST WINDOW'
-        self.flashObject.root.width = 380
-        self.flashObject.root.height = 240
+    pass
 ```
 
 ```actionscript
@@ -113,8 +207,15 @@ package
 {
     import net.wg.infrastructure.base.AbstractWindowView;
     
-    public class Main extends AbstractWindowView
+    public class MyView extends AbstractWindowView
     {
+        protected function onPopulate() : void
+        {
+            super.onPopulate();
+            width = 380;
+            height = 240;
+            window.title = "Test View";
+        }
     }
 }
 ```
