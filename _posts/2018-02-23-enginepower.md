@@ -1,5 +1,5 @@
 ---
-layout: page
+layout: post
 title: WoT のエンジン出力と最大速度
 mathjax: true
 date: 2018-02-23 21:15 +0900
