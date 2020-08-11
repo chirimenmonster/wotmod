@@ -3,7 +3,7 @@ layout: post
 title: WoT 1.10 の拡張パーツ一覧
 mathjax: true
 date: 2020-08-08 21:30 +0900
-last_modified_at: 2020-08-11 17:00 +0900
+last_modified_at: 2020-08-11 17:15 +0900
 ---
 
 WoT クライアント内から WoT 1.10 の拡張パーツ情報を抽出しました。
@@ -122,10 +122,10 @@ EU 英語クライアントから抽出しています。
 
 | Attribute | Type | Regular |
 |:--- |:---:|:---:|
-| [vehicleRepairSpeed](#vehiclerepairspeed) | mul | 1.45 |
-| [vehicleAmmoBayEngineFuelStrength](#vehicleammobayenginefuelstrength) | mul | 2.5 |
-| [vehPenaltyForDamageEngineAndCombat](#vehpenaltyfordamageengineandcombat) | mul | 0.35 |
-| [vehicleFireChance](#vehiclefirechance) | mul | 0.35 |
+| vehicleRepairSpeed | mul | 1.45 |
+| vehicleAmmoBayEngineFuelStrength | mul | 2.5 |
+| vehPenaltyForDamageEngineAndCombat | mul | 0.35 |
+| vehicleFireChance | mul | 0.35 |
 
 ### deluxImprovedVentilation
 
@@ -158,7 +158,7 @@ EU 英語クライアントから抽出しています。
 
 | Attribute | Type | Regular |
 |:--- |:---:|:---:|
-| [crewLevel](#crewlevel) | mul | 1.085 |
+| crewLevel | mul | 1.085 |
 
 ### deluxRammer
 
@@ -191,7 +191,7 @@ EU 英語クライアントから抽出しています。
 
 | Attribute | Type | Regular |
 |:--- |:---:|:---:|
-| [vehicleGunReloadTime](#vehiclegunreloadtime) | mul | 0.865 |
+| vehicleGunReloadTime | mul | 0.865 |
 
 ### deluxCoatedOptics
 
@@ -217,7 +217,7 @@ EU 英語クライアントから抽出しています。
 
 | Attribute | Type | Regular |
 |:--- |:---:|:---:|
-| [vehicleCircularVisionRadius](#vehiclecircularvisionradius) | mul | 1.135 |
+| vehicleCircularVisionRadius | mul | 1.135 |
 
 ### deluxAimingStabilizer
 
@@ -250,7 +250,7 @@ EU 英語クライアントから抽出しています。
 
 | Attribute | Type | Regular |
 |:--- |:---:|:---:|
-| [vehicleGunShotDispersion](#vehiclegunshotdispersion) | mul | 0.725 |
+| vehicleGunShotDispersion | mul | 0.725 |
 
 ### deluxEnhancedAimDrives
 
@@ -277,7 +277,7 @@ EU 英語クライアントから抽出しています。
 
 | Attribute | Type | Regular |
 |:--- |:---:|:---:|
-| [vehicleGunAimSpeed](#vehiclegunaimspeed) | mul | 1.135 |
+| vehicleGunAimSpeed | mul | 1.135 |
 
 ### trophyBasicAimDrives
 
@@ -305,7 +305,7 @@ EU 英語クライアントから抽出しています。
 
 | Attribute | Type | Regular |
 |:--- |:---:|:---:|
-| [vehicleGunAimSpeed](#vehiclegunaimspeed) | mul | 1.1 |
+| vehicleGunAimSpeed | mul | 1.1 |
 
 ### trophyUpgradedAimDrives
 
@@ -332,7 +332,7 @@ EU 英語クライアントから抽出しています。
 
 | Attribute | Type | Regular |
 |:--- |:---:|:---:|
-| [vehicleGunAimSpeed](#vehiclegunaimspeed) | mul | 1.125 |
+| vehicleGunAimSpeed | mul | 1.125 |
 
 ### trophyBasicTankRammer
 
@@ -366,7 +366,7 @@ EU 英語クライアントから抽出しています。
 
 | Attribute | Type | Regular |
 |:--- |:---:|:---:|
-| [vehicleGunReloadTime](#vehiclegunreloadtime) | mul | 0.9 |
+| vehicleGunReloadTime | mul | 0.9 |
 
 ### trophyUpgradedTankRammer
 
@@ -399,7 +399,7 @@ EU 英語クライアントから抽出しています。
 
 | Attribute | Type | Regular |
 |:--- |:---:|:---:|
-| [vehicleGunReloadTime](#vehiclegunreloadtime) | mul | 0.875 |
+| vehicleGunReloadTime | mul | 0.875 |
 
 ### trophyBasicImprovedVentilation
 
@@ -433,7 +433,7 @@ EU 英語クライアントから抽出しています。
 
 | Attribute | Type | Regular |
 |:--- |:---:|:---:|
-| [crewLevel](#crewlevel) | mul | 1.05 |
+| crewLevel | mul | 1.05 |
 
 ### trophyUpgradedImprovedVentilation
 
@@ -466,7 +466,7 @@ EU 英語クライアントから抽出しています。
 
 | Attribute | Type | Regular |
 |:--- |:---:|:---:|
-| [crewLevel](#crewlevel) | mul | 1.075 |
+| crewLevel | mul | 1.075 |
 
 ### trophyBasicAimingStabilizer
 
@@ -500,7 +500,7 @@ EU 英語クライアントから抽出しています。
 
 | Attribute | Type | Regular |
 |:--- |:---:|:---:|
-| [vehicleGunShotDispersion](#vehiclegunshotdispersion) | mul | 0.8 |
+| vehicleGunShotDispersion | mul | 0.8 |
 
 ### trophyUpgradedAimingStabilizer
 
@@ -533,7 +533,7 @@ EU 英語クライアントから抽出しています。
 
 | Attribute | Type | Regular |
 |:--- |:---:|:---:|
-| [vehicleGunShotDispersion](#vehiclegunshotdispersion) | mul | 0.75 |
+| vehicleGunShotDispersion | mul | 0.75 |
 
 ### trophyBasicCoatedOptics
 
@@ -560,7 +560,7 @@ EU 英語クライアントから抽出しています。
 
 | Attribute | Type | Regular |
 |:--- |:---:|:---:|
-| [vehicleCircularVisionRadius](#vehiclecircularvisionradius) | mul | 1.1 |
+| vehicleCircularVisionRadius | mul | 1.1 |
 
 ### trophyUpgradedCoatedOptics
 
@@ -586,7 +586,7 @@ EU 英語クライアントから抽出しています。
 
 | Attribute | Type | Regular |
 |:--- |:---:|:---:|
-| [vehicleCircularVisionRadius](#vehiclecircularvisionradius) | mul | 1.125 |
+| vehicleCircularVisionRadius | mul | 1.125 |
 
 ### trophyBasicImprovedConfiguration
 
@@ -621,10 +621,10 @@ EU 英語クライアントから抽出しています。
 
 | Attribute | Type | Regular |
 |:--- |:---:|:---:|
-| [vehicleRepairSpeed](#vehiclerepairspeed) | mul | 1.25 |
-| [vehicleAmmoBayEngineFuelStrength](#vehicleammobayenginefuelstrength) | mul | 2.0 |
-| [vehPenaltyForDamageEngineAndCombat](#vehpenaltyfordamageengineandcombat) | mul | 0.5 |
-| [vehicleFireChance](#vehiclefirechance) | mul | 0.5 |
+| vehicleRepairSpeed | mul | 1.25 |
+| vehicleAmmoBayEngineFuelStrength | mul | 2.0 |
+| vehPenaltyForDamageEngineAndCombat | mul | 0.5 |
+| vehicleFireChance | mul | 0.5 |
 
 ### trophyUpgradedImprovedConfiguration
 
@@ -658,10 +658,10 @@ EU 英語クライアントから抽出しています。
 
 | Attribute | Type | Regular |
 |:--- |:---:|:---:|
-| [vehicleRepairSpeed](#vehiclerepairspeed) | mul | 1.4 |
-| [vehicleAmmoBayEngineFuelStrength](#vehicleammobayenginefuelstrength) | mul | 2.5 |
-| [vehPenaltyForDamageEngineAndCombat](#vehpenaltyfordamageengineandcombat) | mul | 0.3 |
-| [vehicleFireChance](#vehiclefirechance) | mul | 0.3 |
+| vehicleRepairSpeed | mul | 1.4 |
+| vehicleAmmoBayEngineFuelStrength | mul | 2.5 |
+| vehPenaltyForDamageEngineAndCombat | mul | 0.3 |
+| vehicleFireChance | mul | 0.3 |
 
 ### improvedConfiguration_tier2
 
@@ -700,10 +700,10 @@ EU 英語クライアントから抽出しています。
 
 | Attribute | Type | Regular | Imploved |
 |:--- |:---:|:---:|:---:|
-| [vehicleRepairSpeed](#vehiclerepairspeed) | mul | 1.25 | 1.35 |
-| [vehicleAmmoBayEngineFuelStrength](#vehicleammobayenginefuelstrength) | mul | 2.0 | 2.5 |
-| [vehPenaltyForDamageEngineAndCombat](#vehpenaltyfordamageengineandcombat) | mul | 0.5 | 0.35 |
-| [vehicleFireChance](#vehiclefirechance) | mul | 0.5 | 0.35 |
+| vehicleRepairSpeed | mul | 1.25 | 1.35 |
+| vehicleAmmoBayEngineFuelStrength | mul | 2.0 | 2.5 |
+| vehPenaltyForDamageEngineAndCombat | mul | 0.5 | 0.35 |
+| vehicleFireChance | mul | 0.5 | 0.35 |
 
 ### improvedConfiguration_tier1
 
@@ -742,10 +742,10 @@ EU 英語クライアントから抽出しています。
 
 | Attribute | Type | Regular | Imploved |
 |:--- |:---:|:---:|:---:|
-| [vehicleRepairSpeed](#vehiclerepairspeed) | mul | 1.25 | 1.35 |
-| [vehicleAmmoBayEngineFuelStrength](#vehicleammobayenginefuelstrength) | mul | 2.0 | 2.5 |
-| [vehPenaltyForDamageEngineAndCombat](#vehpenaltyfordamageengineandcombat) | mul | 0.5 | 0.35 |
-| [vehicleFireChance](#vehiclefirechance) | mul | 0.5 | 0.35 |
+| vehicleRepairSpeed | mul | 1.25 | 1.35 |
+| vehicleAmmoBayEngineFuelStrength | mul | 2.0 | 2.5 |
+| vehPenaltyForDamageEngineAndCombat | mul | 0.5 | 0.35 |
+| vehicleFireChance | mul | 0.5 | 0.35 |
 
 ### antifragmentationLining_tier4
 
@@ -781,10 +781,10 @@ EU 英語クライアントから抽出しています。
 
 | Attribute | Type | Regular | Imploved |
 |:--- |:---:|:---:|:---:|
-| [vehicleRamOrExplosionDamageResistance](#vehicleramorexplosiondamageresistance) | mul | 0.5 | 0.4 |
-| [crewHitChance](#crewhitchance) | mul | 1.5 | 1.6 |
-| [crewStunDuration](#crewstunduration) | mul | 0.9 | 0.85 |
-| [crewRepeatedStunDuration](#crewrepeatedstunduration) | mul | 0.8 | 0.75 |
+| vehicleRamOrExplosionDamageResistance | mul | 0.5 | 0.4 |
+| crewHitChance | mul | 1.5 | 1.6 |
+| crewStunDuration | mul | 0.9 | 0.85 |
+| crewRepeatedStunDuration | mul | 0.8 | 0.75 |
 
 ### antifragmentationLining_tier3
 
@@ -820,10 +820,10 @@ EU 英語クライアントから抽出しています。
 
 | Attribute | Type | Regular | Imploved |
 |:--- |:---:|:---:|:---:|
-| [vehicleRamOrExplosionDamageResistance](#vehicleramorexplosiondamageresistance) | mul | 0.5 | 0.4 |
-| [crewHitChance](#crewhitchance) | mul | 1.5 | 1.6 |
-| [crewStunDuration](#crewstunduration) | mul | 0.9 | 0.85 |
-| [crewRepeatedStunDuration](#crewrepeatedstunduration) | mul | 0.8 | 0.75 |
+| vehicleRamOrExplosionDamageResistance | mul | 0.5 | 0.4 |
+| crewHitChance | mul | 1.5 | 1.6 |
+| crewStunDuration | mul | 0.9 | 0.85 |
+| crewRepeatedStunDuration | mul | 0.8 | 0.75 |
 
 ### antifragmentationLining_tier2
 
@@ -859,10 +859,10 @@ EU 英語クライアントから抽出しています。
 
 | Attribute | Type | Regular | Imploved |
 |:--- |:---:|:---:|:---:|
-| [vehicleRamOrExplosionDamageResistance](#vehicleramorexplosiondamageresistance) | mul | 0.5 | 0.4 |
-| [crewHitChance](#crewhitchance) | mul | 1.5 | 1.6 |
-| [crewStunDuration](#crewstunduration) | mul | 0.9 | 0.85 |
-| [crewRepeatedStunDuration](#crewrepeatedstunduration) | mul | 0.8 | 0.75 |
+| vehicleRamOrExplosionDamageResistance | mul | 0.5 | 0.4 |
+| crewHitChance | mul | 1.5 | 1.6 |
+| crewStunDuration | mul | 0.9 | 0.85 |
+| crewRepeatedStunDuration | mul | 0.8 | 0.75 |
 
 ### antifragmentationLining_tier1
 
@@ -898,10 +898,10 @@ EU 英語クライアントから抽出しています。
 
 | Attribute | Type | Regular | Imploved |
 |:--- |:---:|:---:|:---:|
-| [vehicleRamOrExplosionDamageResistance](#vehicleramorexplosiondamageresistance) | mul | 0.5 | 0.4 |
-| [crewHitChance](#crewhitchance) | mul | 1.5 | 1.6 |
-| [crewStunDuration](#crewstunduration) | mul | 0.9 | 0.85 |
-| [crewRepeatedStunDuration](#crewrepeatedstunduration) | mul | 0.8 | 0.75 |
+| vehicleRamOrExplosionDamageResistance | mul | 0.5 | 0.4 |
+| crewHitChance | mul | 1.5 | 1.6 |
+| crewStunDuration | mul | 0.9 | 0.85 |
+| crewRepeatedStunDuration | mul | 0.8 | 0.75 |
 
 ### stereoscope_tier3
 
@@ -936,7 +936,7 @@ EU 英語クライアントから抽出しています。
 
 | Attribute | Type | Regular | Imploved |
 |:--- |:---:|:---:|:---:|
-| [vehicleStillCircularVisionRadius](#vehiclestillcircularvisionradius) | mul | 1.25 | 1.275 |
+| vehicleStillCircularVisionRadius | mul | 1.25 | 1.275 |
 
 ### stereoscope_tier2
 
@@ -971,7 +971,7 @@ EU 英語クライアントから抽出しています。
 
 | Attribute | Type | Regular | Imploved |
 |:--- |:---:|:---:|:---:|
-| [vehicleStillCircularVisionRadius](#vehiclestillcircularvisionradius) | mul | 1.25 | 1.275 |
+| vehicleStillCircularVisionRadius | mul | 1.25 | 1.275 |
 
 ### stereoscope_tier1
 
@@ -1006,7 +1006,7 @@ EU 英語クライアントから抽出しています。
 
 | Attribute | Type | Regular | Imploved |
 |:--- |:---:|:---:|:---:|
-| [vehicleStillCircularVisionRadius](#vehiclestillcircularvisionradius) | mul | 1.25 | 1.275 |
+| vehicleStillCircularVisionRadius | mul | 1.25 | 1.275 |
 
 ### coatedOptics_tier3
 
@@ -1037,7 +1037,7 @@ EU 英語クライアントから抽出しています。
 
 | Attribute | Type | Regular | Imploved |
 |:--- |:---:|:---:|:---:|
-| [vehicleCircularVisionRadius](#vehiclecircularvisionradius) | mul | 1.1 | 1.115 |
+| vehicleCircularVisionRadius | mul | 1.1 | 1.115 |
 
 ### coatedOptics_tier2
 
@@ -1068,7 +1068,7 @@ EU 英語クライアントから抽出しています。
 
 | Attribute | Type | Regular | Imploved |
 |:--- |:---:|:---:|:---:|
-| [vehicleCircularVisionRadius](#vehiclecircularvisionradius) | mul | 1.1 | 1.115 |
+| vehicleCircularVisionRadius | mul | 1.1 | 1.115 |
 
 ### coatedOptics_tier1
 
@@ -1099,7 +1099,7 @@ EU 英語クライアントから抽出しています。
 
 | Attribute | Type | Regular | Imploved |
 |:--- |:---:|:---:|:---:|
-| [vehicleCircularVisionRadius](#vehiclecircularvisionradius) | mul | 1.1 | 1.115 |
+| vehicleCircularVisionRadius | mul | 1.1 | 1.115 |
 
 ### camouflageNet_tier3
 
@@ -1133,9 +1133,9 @@ EU 英語クライアントから抽出しています。
 
 | Attribute | Type | Regular | Imploved |
 |:--- |:---:|:---:|:---:|
-| [vehicleStillCamouflage](#vehiclestillcamouflage) | mul | 1.15 | 1.175 |
-| [vehicleStillCamouflage](#vehiclestillcamouflage) | mul | 1.1 | 1.125 |
-| [vehicleStillCamouflage](#vehiclestillcamouflage) | mul | 1.05 | 1.075 |
+| vehicleStillCamouflage | mul | 1.15 | 1.175 |
+| vehicleStillCamouflage | mul | 1.1 | 1.125 |
+| vehicleStillCamouflage | mul | 1.05 | 1.075 |
 
 ### camouflageNet_tier2
 
@@ -1169,9 +1169,9 @@ EU 英語クライアントから抽出しています。
 
 | Attribute | Type | Regular | Imploved |
 |:--- |:---:|:---:|:---:|
-| [vehicleStillCamouflage](#vehiclestillcamouflage) | mul | 1.15 | 1.175 |
-| [vehicleStillCamouflage](#vehiclestillcamouflage) | mul | 1.1 | 1.125 |
-| [vehicleStillCamouflage](#vehiclestillcamouflage) | mul | 1.05 | 1.075 |
+| vehicleStillCamouflage | mul | 1.15 | 1.175 |
+| vehicleStillCamouflage | mul | 1.1 | 1.125 |
+| vehicleStillCamouflage | mul | 1.05 | 1.075 |
 
 ### improvedVentilation_tier3
 
@@ -1203,7 +1203,7 @@ EU 英語クライアントから抽出しています。
 
 | Attribute | Type | Regular | Imploved |
 |:--- |:---:|:---:|:---:|
-| [crewLevel](#crewlevel) | mul | 1.05 | 1.060 |
+| crewLevel | mul | 1.05 | 1.060 |
 
 ### improvedVentilation_tier2
 
@@ -1235,7 +1235,7 @@ EU 英語クライアントから抽出しています。
 
 | Attribute | Type | Regular | Imploved |
 |:--- |:---:|:---:|:---:|
-| [crewLevel](#crewlevel) | mul | 1.05 | 1.06 |
+| crewLevel | mul | 1.05 | 1.06 |
 
 ### improvedVentilation_tier1
 
@@ -1267,7 +1267,7 @@ EU 英語クライアントから抽出しています。
 
 | Attribute | Type | Regular | Imploved |
 |:--- |:---:|:---:|:---:|
-| [crewLevel](#crewlevel) | mul | 1.05 | 1.06 |
+| crewLevel | mul | 1.05 | 1.06 |
 
 ### grousers_tier3
 
@@ -1302,8 +1302,8 @@ EU 英語クライアントから抽出しています。
 
 | Attribute | Type | Regular | Imploved |
 |:--- |:---:|:---:|:---:|
-| [vehicleAllGroundRotationSpeed](#vehicleallgroundrotationspeed) | mul | 1.15 | 1.2 |
-| [vehicleSpeedGain](#vehiclespeedgain) | mul | 1.1 | 1.15 |
+| vehicleAllGroundRotationSpeed | mul | 1.15 | 1.2 |
+| vehicleSpeedGain | mul | 1.1 | 1.15 |
 
 ### grousers_tier2
 
@@ -1338,8 +1338,8 @@ EU 英語クライアントから抽出しています。
 
 | Attribute | Type | Regular | Imploved |
 |:--- |:---:|:---:|:---:|
-| [vehicleAllGroundRotationSpeed](#vehicleallgroundrotationspeed) | mul | 1.15 | 1.2 |
-| [vehicleSpeedGain](#vehiclespeedgain) | mul | 1.1 | 1.15 |
+| vehicleAllGroundRotationSpeed | mul | 1.15 | 1.2 |
+| vehicleSpeedGain | mul | 1.1 | 1.15 |
 
 ### grousers_tier1
 
@@ -1374,8 +1374,8 @@ EU 英語クライアントから抽出しています。
 
 | Attribute | Type | Regular | Imploved |
 |:--- |:---:|:---:|:---:|
-| [vehicleAllGroundRotationSpeed](#vehicleallgroundrotationspeed) | mul | 1.15 | 1.2 |
-| [vehicleSpeedGain](#vehiclespeedgain) | mul | 1.1 | 1.15 |
+| vehicleAllGroundRotationSpeed | mul | 1.15 | 1.2 |
+| vehicleSpeedGain | mul | 1.1 | 1.15 |
 
 ### tankRammer_tier2
 
@@ -1407,7 +1407,7 @@ EU 英語クライアントから抽出しています。
 
 | Attribute | Type | Regular | Imploved |
 |:--- |:---:|:---:|:---:|
-| [vehicleGunReloadTime](#vehiclegunreloadtime) | mul | 0.9 | 0.885 |
+| vehicleGunReloadTime | mul | 0.9 | 0.885 |
 
 ### tankRammer_tier1
 
@@ -1439,7 +1439,7 @@ EU 英語クライアントから抽出しています。
 
 | Attribute | Type | Regular | Imploved |
 |:--- |:---:|:---:|:---:|
-| [vehicleGunReloadTime](#vehiclegunreloadtime) | mul | 0.9 | 0.885 |
+| vehicleGunReloadTime | mul | 0.9 | 0.885 |
 
 ### enhancedAimDrives_tier3
 
@@ -1471,7 +1471,7 @@ EU 英語クライアントから抽出しています。
 
 | Attribute | Type | Regular | Imploved |
 |:--- |:---:|:---:|:---:|
-| [vehicleGunAimSpeed](#vehiclegunaimspeed) | mul | 1.1 | 1.115 |
+| vehicleGunAimSpeed | mul | 1.1 | 1.115 |
 
 ### enhancedAimDrives_tier2
 
@@ -1503,7 +1503,7 @@ EU 英語クライアントから抽出しています。
 
 | Attribute | Type | Regular | Imploved |
 |:--- |:---:|:---:|:---:|
-| [vehicleGunAimSpeed](#vehiclegunaimspeed) | mul | 1.1 | 1.115 |
+| vehicleGunAimSpeed | mul | 1.1 | 1.115 |
 
 ### enhancedAimDrives_tier1
 
@@ -1535,7 +1535,7 @@ EU 英語クライアントから抽出しています。
 
 | Attribute | Type | Regular | Imploved |
 |:--- |:---:|:---:|:---:|
-| [vehicleGunAimSpeed](#vehiclegunaimspeed) | mul | 1.1 | 1.115 |
+| vehicleGunAimSpeed | mul | 1.1 | 1.115 |
 
 ### aimingStabilizer_tier2
 
@@ -1567,7 +1567,7 @@ EU 英語クライアントから抽出しています。
 
 | Attribute | Type | Regular |
 |:--- |:---:|:---:|
-| [vehicleGunShotDispersion](#vehiclegunshotdispersion) | mul | 0.8 |
+| vehicleGunShotDispersion | mul | 0.8 |
 
 ### aimingStabilizer_tier1
 
@@ -1599,7 +1599,7 @@ EU 英語クライアントから抽出しています。
 
 | Attribute | Type | Regular |
 |:--- |:---:|:---:|
-| [vehicleGunShotDispersion](#vehiclegunshotdispersion) | mul | 0.8 |
+| vehicleGunShotDispersion | mul | 0.8 |
 
 ### additionalInvisibilityDevice_tier3
 
@@ -1631,9 +1631,9 @@ EU 英語クライアントから抽出しています。
 
 | Attribute | Type | Regular | Imploved |
 |:--- |:---:|:---:|:---:|
-| [vehicleCamouflage](#vehiclecamouflage) | mul | 1.06 | 1.08 |
-| [vehicleCamouflage](#vehiclecamouflage) | mul | 1.05 | 1.06 |
-| [vehicleCamouflage](#vehiclecamouflage) | mul | 1.03 | 1.04 |
+| vehicleCamouflage | mul | 1.06 | 1.08 |
+| vehicleCamouflage | mul | 1.05 | 1.06 |
+| vehicleCamouflage | mul | 1.03 | 1.04 |
 
 ### additionalInvisibilityDevice_tier2
 
@@ -1665,9 +1665,9 @@ EU 英語クライアントから抽出しています。
 
 | Attribute | Type | Regular | Imploved |
 |:--- |:---:|:---:|:---:|
-| [vehicleCamouflage](#vehiclecamouflage) | mul | 1.06 | 1.08 |
-| [vehicleCamouflage](#vehiclecamouflage) | mul | 1.05 | 1.06 |
-| [vehicleCamouflage](#vehiclecamouflage) | mul | 1.03 | 1.04 |
+| vehicleCamouflage | mul | 1.06 | 1.08 |
+| vehicleCamouflage | mul | 1.05 | 1.06 |
+| vehicleCamouflage | mul | 1.03 | 1.04 |
 
 ### additionalInvisibilityDevice_tier1
 
@@ -1699,9 +1699,9 @@ EU 英語クライアントから抽出しています。
 
 | Attribute | Type | Regular | Imploved |
 |:--- |:---:|:---:|:---:|
-| [vehicleCamouflage](#vehiclecamouflage) | mul | 1.06 | 1.08 |
-| [vehicleCamouflage](#vehiclecamouflage) | mul | 1.05 | 1.06 |
-| [vehicleCamouflage](#vehiclecamouflage) | mul | 1.03 | 1.04 |
+| vehicleCamouflage | mul | 1.06 | 1.08 |
+| vehicleCamouflage | mul | 1.05 | 1.06 |
+| vehicleCamouflage | mul | 1.03 | 1.04 |
 
 ### extraHealthReserve_tier3
 
@@ -1736,11 +1736,11 @@ EU 英語クライアントから抽出しています。
 
 | Attribute | Type | Regular | Imploved |
 |:--- |:---:|:---:|:---:|
-| [vehicleStrength](#vehiclestrength) | mul | 1.08 | 1.1 |
-| [vehicleChassisStrength](#vehiclechassisstrength) | mul | 1.5 | 1.65 |
-| [vehicleChassisRepairSpeed](#vehiclechassisrepairspeed) | mul | 1.15 | 1.2 |
-| [vehicleChassisLoad](#vehiclechassisload) | mul | 1.1 | 1.1 |
-| [vehicleChassisFallDamage](#vehiclechassisfalldamage) | mul | 0.5 | 0.35 |
+| vehicleStrength | mul | 1.08 | 1.1 |
+| vehicleChassisStrength | mul | 1.5 | 1.65 |
+| vehicleChassisRepairSpeed | mul | 1.15 | 1.2 |
+| vehicleChassisLoad | mul | 1.1 | 1.1 |
+| vehicleChassisFallDamage | mul | 0.5 | 0.35 |
 
 ### extraHealthReserve_tier2
 
@@ -1775,11 +1775,11 @@ EU 英語クライアントから抽出しています。
 
 | Attribute | Type | Regular | Imploved |
 |:--- |:---:|:---:|:---:|
-| [vehicleStrength](#vehiclestrength) | mul | 1.08 | 1.1 |
-| [vehicleChassisStrength](#vehiclechassisstrength) | mul | 1.5 | 1.65 |
-| [vehicleChassisRepairSpeed](#vehiclechassisrepairspeed) | mul | 1.15 | 1.2 |
-| [vehicleChassisLoad](#vehiclechassisload) | mul | 1.1 | 1.1 |
-| [vehicleChassisFallDamage](#vehiclechassisfalldamage) | mul | 0.5 | 0.35 |
+| vehicleStrength | mul | 1.08 | 1.1 |
+| vehicleChassisStrength | mul | 1.5 | 1.65 |
+| vehicleChassisRepairSpeed | mul | 1.15 | 1.2 |
+| vehicleChassisLoad | mul | 1.1 | 1.1 |
+| vehicleChassisFallDamage | mul | 0.5 | 0.35 |
 
 ### extraHealthReserve_tier1
 
@@ -1814,11 +1814,11 @@ EU 英語クライアントから抽出しています。
 
 | Attribute | Type | Regular | Imploved |
 |:--- |:---:|:---:|:---:|
-| [vehicleStrength](#vehiclestrength) | mul | 1.08 | 1.1 |
-| [vehicleChassisStrength](#vehiclechassisstrength) | mul | 1.5 | 1.65 |
-| [vehicleChassisRepairSpeed](#vehiclechassisrepairspeed) | mul | 1.15 | 1.2 |
-| [vehicleChassisLoad](#vehiclechassisload) | mul | 1.1 | 1.1 |
-| [vehicleChassisFallDamage](#vehiclechassisfalldamage) | mul | 0.5 | 0.35 |
+| vehicleStrength | mul | 1.08 | 1.1 |
+| vehicleChassisStrength | mul | 1.5 | 1.65 |
+| vehicleChassisRepairSpeed | mul | 1.15 | 1.2 |
+| vehicleChassisLoad | mul | 1.1 | 1.1 |
+| vehicleChassisFallDamage | mul | 0.5 | 0.35 |
 
 ### improvedRadioCommunication
 
@@ -1849,8 +1849,8 @@ EU 英語クライアントから抽出しています。
 
 | Attribute | Type | Regular | Imploved |
 |:--- |:---:|:---:|:---:|
-| [vehicleEnemySpottingTime](#vehicleenemyspottingtime) | add | 1.5 | 2.0 |
-| [vehicleOwnSpottingTime](#vehicleownspottingtime) | add | -1.5 | -2.0 |
+| vehicleEnemySpottingTime | add | 1.5 | 2.0 |
+| vehicleOwnSpottingTime | add | -1.5 | -2.0 |
 
 ### improvedRotationMechanism_tier2
 
@@ -1888,9 +1888,9 @@ EU 英語クライアントから抽出しています。
 
 | Attribute | Type | Regular | Imploved |
 |:--- |:---:|:---:|:---:|
-| [vehicleTurretOrCuttingRotationSpeed](#vehicleturretorcuttingrotationspeed) | mul | 1.1 | 1.125 |
-| [vehicleAllGroundRotationSpeed](#vehicleallgroundrotationspeed) | mul | 1.1 | 1.125 |
-| [vehicleGunShotDispersion](#vehiclegunshotdispersion) | mul | 0.9 | 0.875 |
+| vehicleTurretOrCuttingRotationSpeed | mul | 1.1 | 1.125 |
+| vehicleAllGroundRotationSpeed | mul | 1.1 | 1.125 |
+| vehicleGunShotDispersion | mul | 0.9 | 0.875 |
 
 ### improvedRotationMechanism_tier1
 
@@ -1928,9 +1928,9 @@ EU 英語クライアントから抽出しています。
 
 | Attribute | Type | Regular | Imploved |
 |:--- |:---:|:---:|:---:|
-| [vehicleTurretOrCuttingRotationSpeed](#vehicleturretorcuttingrotationspeed) | mul | 1.1 | 1.125 |
-| [vehicleAllGroundRotationSpeed](#vehicleallgroundrotationspeed) | mul | 1.1 | 1.125 |
-| [vehicleGunShotDispersion](#vehiclegunshotdispersion) | mul | 0.9 | 0.875 |
+| vehicleTurretOrCuttingRotationSpeed | mul | 1.1 | 1.125 |
+| vehicleAllGroundRotationSpeed | mul | 1.1 | 1.125 |
+| vehicleGunShotDispersion | mul | 0.9 | 0.875 |
 
 ### turbocharger_tier3
 
@@ -1965,9 +1965,9 @@ EU 英語クライアントから抽出しています。
 
 | Attribute | Type | Regular | Imploved |
 |:--- |:---:|:---:|:---:|
-| [vehicleEnginePower](#vehicleenginepower) | mul | 1.075 | 1.1 |
-| [vehicleForwardMaxSpeed](#vehicleforwardmaxspeed) | add | 4 | 5 |
-| [vehicleBackwardMaxSpeed](#vehiclebackwardmaxspeed) | add | 2 | 3 |
+| vehicleEnginePower | mul | 1.075 | 1.1 |
+| vehicleForwardMaxSpeed | add | 4 | 5 |
+| vehicleBackwardMaxSpeed | add | 2 | 3 |
 
 ### turbocharger_tier2
 
@@ -2002,9 +2002,9 @@ EU 英語クライアントから抽出しています。
 
 | Attribute | Type | Regular | Imploved |
 |:--- |:---:|:---:|:---:|
-| [vehicleEnginePower](#vehicleenginepower) | mul | 1.075 | 1.1 |
-| [vehicleForwardMaxSpeed](#vehicleforwardmaxspeed) | add | 4 | 5 |
-| [vehicleBackwardMaxSpeed](#vehiclebackwardmaxspeed) | add | 2 | 3 |
+| vehicleEnginePower | mul | 1.075 | 1.1 |
+| vehicleForwardMaxSpeed | add | 4 | 5 |
+| vehicleBackwardMaxSpeed | add | 2 | 3 |
 
 ### turbocharger_tier1
 
@@ -2039,9 +2039,9 @@ EU 英語クライアントから抽出しています。
 
 | Attribute | Type | Regular | Imploved |
 |:--- |:---:|:---:|:---:|
-| [vehicleEnginePower](#vehicleenginepower) | mul | 1.075 | 1.1 |
-| [vehicleForwardMaxSpeed](#vehicleforwardmaxspeed) | add | 4 | 5 |
-| [vehicleBackwardMaxSpeed](#vehiclebackwardmaxspeed) | add | 2 | 3 |
+| vehicleEnginePower | mul | 1.075 | 1.1 |
+| vehicleForwardMaxSpeed | add | 4 | 5 |
+| vehicleBackwardMaxSpeed | add | 2 | 3 |
 
 ### commandersView
 
@@ -2072,8 +2072,8 @@ EU 英語クライアントから抽出しています。
 
 | Attribute | Type | Regular | Imploved |
 |:--- |:---:|:---:|:---:|
-| [demaskFoliageFactor](#demaskfoliagefactor) | mul | 0.85 | 0.80 |
-| [demaskMovingFactor](#demaskmovingfactor) | mul | 0.9 | 0.875 |
+| demaskFoliageFactor | mul | 0.85 | 0.80 |
+| demaskMovingFactor | mul | 0.9 | 0.875 |
 
 ### improvedSights_tier2
 
@@ -2105,7 +2105,7 @@ EU 英語クライアントから抽出しています。
 
 | Attribute | Type | Regular | Imploved |
 |:--- |:---:|:---:|:---:|
-| [vehicleGunShotFullDispersion](#vehiclegunshotfulldispersion) | mul | 0.95 | 0.93 |
+| vehicleGunShotFullDispersion | mul | 0.95 | 0.93 |
 
 ### improvedSights_tier1
 
@@ -2137,7 +2137,7 @@ EU 英語クライアントから抽出しています。
 
 | Attribute | Type | Regular | Imploved |
 |:--- |:---:|:---:|:---:|
-| [vehicleGunShotFullDispersion](#vehiclegunshotfulldispersion) | mul | 0.95 | 0.93 |
+| vehicleGunShotFullDispersion | mul | 0.95 | 0.93 |
 
 ## Attribute Factors
 
