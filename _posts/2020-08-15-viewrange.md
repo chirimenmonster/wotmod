@@ -3,6 +3,7 @@ layout: post
 title: 視認範囲の計算
 mathjax: true
 date: 2020-08-15 23:30 +0900
+last_modified_at: 2020-08-16 13:30 +0900
 ---
 
 WoT の視認範囲について、計算方法をまとめました。
@@ -25,6 +26,22 @@ WoT の発見・観測メカニズムについては、公式・非公式を含�
 + [World of Tanks Wiki: Battle Mechanics: View Range](https://wiki.wargaming.net/en/Battle_Mechanics#View_Range)
 + [WOTINFO.NET](http://www.wotinfo.net/en/camo-calculator)
 
+## 目次
+
++ [視認範囲の計算式](#視認範囲の計算式)
+    + [プライマリスキルによる補正係数](#プライマリスキルによる補正係数)
+    + [搭乗員スキル偵察による補正係数](#搭乗員スキル偵察による補正係数)
+    + [搭乗員スキル状況判断力による補正係数](#搭乗員スキル状況判断力による補正係数)
+    + [拡張パーツによる補正係数](#拡張パーツによる補正係数)
+    + [プライマリスキル補正効果についての補足](#プライマリスキル補正効果についての補足)
+    + [セカンダリスキル補正効果についての補足](#セカンダリスキル補正効果についての補足)
++ [視認範囲現在値の取得と検証](#視認範囲現在値の取得と検証)
+    + [クライアント内部値の取得](#クライアント内部値の取得)
+    + [取得した値と計算結果との比較](#取得した値と計算結果との比較)
+        + [車長プライマリスキルが 100% の場合](#車長プライマリスキルが-100-の場合)
+        + [車長プライマリスキルが 50% の場合](#車長プライマリスキルが-50-の場合)
+        + [計算結果との比較 (セカンダリスキルが高めの場合)](#計算結果との比較-セカンダリスキルが高めの場合)
+
 
 ## 視認範囲の計算式
 
@@ -44,7 +61,7 @@ $$
 
 各補正係数は以下のようになります。
 
-### プライマリスキルによる係数
+### プライマリスキルによる補正係数
 
 プライマリスキル (車長) による補正係数 $P$ は下式で計算されます。
 
@@ -84,25 +101,6 @@ $$
 状況判断力スキルレベルには車長プライマリスキルと戦友による補正、拡張パーツによる補正が適用されます。
 
 
-### スキル効果についての補足
-
-状況判断などのスキル効果は
-スキルレベルごとに効果に対する係数が一定値上昇するという形で表現されています。
-
-例えば無線手の状況判断力の場合は `item_defs/tankmen/tankmen.xml` の
-`radioman_finder/visionRadiusFactorPerLevel`
-で下記のように設定されており、
-視界に対する係数が 1 レベル毎に 0.0003 上昇するようになっています。
-
-```xml
-    <radioman_finder>
-      <userString>#item_types:tankman/skills/radioman_finder</userString>
-      <description>#item_types:tankman/skills/radioman_finder_descr</description>
-      <icon>radioman_finder.png</icon>
-      <visionRadiusFactorPerLevel>0.0003</visionRadiusFactorPerLevel>
-    </radioman_finder>
-```
-
 ### 拡張パーツによる補正係数
 
 拡張パーツによる補正係数は、各拡張パーツごとの固有の数値として定義されています。
@@ -128,6 +126,49 @@ $$
     </script>
   </coatedOptics_tier3>
 ```
+
+### プライマリスキル補正係数についての補足
+
+スキルの補正係数について下式のように分母に 0.875 が来るような記述をみることがありますが、
+遅くとも WoT 0.9.19 以降では係数を小数第2位に丸めた本記事のような計算方法になっています。
+
+$$
+\begin{aligned}
+P &= \frac{0.5 + 0.375 \times S_c / 100}{0.875} \\
+&= 0.5714... + 0.42857... \times S_c / 100 
+\end{aligned}
+$$
+
+
+`common/items/VehicleDescrCrew.py` で定義されるクラス `VehicleDescrCrew` メソッド `_processSkills`
+内の該当箇所を以下に示します。
+
+```python
+        for skillName, efficiency, baseAvgLevel in skillEfficiencies:
+            factor = 0.57 + 0.43 * efficiency
+```
+
+### セカンダリスキル補正効果についての補足
+
+状況判断力などのスキル効果は
+スキルレベルごとに効果に対する係数が一定値上昇するという形で表現されています
+(状況判断力や偵察の場合であって、すべてのセカンダリスキルに共通ではありません)。
+
+例えば無線手の状況判断力の場合は `item_defs/tankmen/tankmen.xml` の
+`radioman_finder/visionRadiusFactorPerLevel`
+で下記のように設定されており、
+視界に対する係数が 1 レベル毎に 0.0003 上昇するようになっています
+(つまりレベル 100 で 3% の上昇です)。
+
+```xml
+    <radioman_finder>
+      <userString>#item_types:tankman/skills/radioman_finder</userString>
+      <description>#item_types:tankman/skills/radioman_finder_descr</description>
+      <icon>radioman_finder.png</icon>
+      <visionRadiusFactorPerLevel>0.0003</visionRadiusFactorPerLevel>
+    </radioman_finder>
+```
+
 
 ## 視認範囲現在値の取得と検証
 
